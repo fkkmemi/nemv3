@@ -106,7 +106,7 @@ export default {
     },
     postReq () {
       axios.post('http://localhost:3000/api/user', {
-        user: 'postMan'
+        name: '가정', age: 444
       })
         .then((r) => {
           this.postMd = JSON.stringify(r.data)

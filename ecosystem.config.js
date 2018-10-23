@@ -14,13 +14,14 @@ module.exports = {
   }],
 
   deploy : {
-    production : {
-      user : 'node',
-      host : '212.83.163.1',
+    pr : {
+      user : 'root',
+      host : '133.186.153.114',
+      key: '~/keys/nemvKey.pem',
       ref  : 'origin/master',
-      repo : 'git@github.com:repo.git',
-      path : '/var/www/production',
-      'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production'
+      repo : 'git@github.com:fkkmemi/nemv3.git',
+      path : '/var/www/nemv3',
+      'post-deploy' : 'yarn pm2'
     }
   }
 };

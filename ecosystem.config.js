@@ -1,4 +1,5 @@
 const cfg = require('./cfg')
+if (!cfg) cfg = { deploy: null }
 
 module.exports = {
   apps : [{

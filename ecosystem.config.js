@@ -1,4 +1,4 @@
-import cfg from './cfg'
+const cfg = require('./cfg')
 
 module.exports = {
   apps : [{
@@ -17,3 +17,5 @@ module.exports = {
 
   deploy : cfg.deploy
 };
+
+console.log(cfg)

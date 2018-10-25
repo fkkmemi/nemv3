@@ -1,3 +1,5 @@
+import cfg from './cfg'
+
 module.exports = {
   apps : [{
     name: 'nemv',
@@ -13,15 +15,5 @@ module.exports = {
     }
   }],
 
-  deploy : {
-    pr : {
-      user : 'root',
-      host : '133.186.153.114',
-      key: '~/keys/nemvKey.pem',
-      ref  : 'origin/master',
-      repo : 'git@github.com:fkkmemi/nemv3.git',
-      path : '/var/www/nemv3',
-      'post-deploy' : 'yarn pm2'
-    }
-  }
+  deploy : cfg.deploy
 };

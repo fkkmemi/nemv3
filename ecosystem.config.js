@@ -1,4 +1,4 @@
-const cfg = require('./cfg')
+let cfg = require('./cfg')
 if (!cfg) cfg = { deploy: null }
 
 module.exports = {

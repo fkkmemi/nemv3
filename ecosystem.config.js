@@ -1,6 +1,3 @@
-let cfg = require('./cfg')
-if (!cfg) cfg = { deploy: null }
-
 module.exports = {
   apps : [{
     name: 'nemv',
@@ -14,9 +11,5 @@ module.exports = {
       NODE_ENV: 'production',
       PORT: 80
     }
-  }],
-
-  deploy : cfg.deploy
+  }]
 };
-
-console.log(cfg)

@@ -3,6 +3,7 @@ node express mongo vue
 
 ## config 파일 세팅 방법
 
+**config/index.js**  
 ```javascript
 module.exports = {
   dbUrl: 'mongodb://localhost:27017/nemv',

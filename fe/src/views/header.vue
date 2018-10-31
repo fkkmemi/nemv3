@@ -33,10 +33,10 @@ export default {
       console.log(localStorage.getItem('token'))
     },
     lsRemove () {
-      console.log(localStorage.removeItem('token'))
+      localStorage.removeItem('token')
     },
     lsClear () {
-      console.log(localStorage.clear())
+      localStorage.clear()
     }
   }
 }

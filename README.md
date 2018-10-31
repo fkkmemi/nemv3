@@ -7,6 +7,10 @@ node express mongo vue
 ```javascript
 module.exports = {
   dbUrl: 'mongodb://localhost:27017/nemv',
+  admin: {
+    id: 'admin',
+    pwd: '1234'
+  }
 }
 ```
 

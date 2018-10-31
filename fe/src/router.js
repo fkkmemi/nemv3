@@ -29,7 +29,7 @@ export default new Router({
     {
       path: '/header',
       name: '헤더',
-      component: () => import('./views/user.vue')
+      component: () => import('./views/header.vue')
     },
     {
       path: '/sign',

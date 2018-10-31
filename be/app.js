@@ -200,18 +200,18 @@ const verifyToken = (t, k) => {
 
 // 어씽크
 
-const getToken = async (name) => {
-  let u = await User.findOne({ name }) // name: name을 축약하고 await로 기다려 줍니다.
-  if (!u) u = await User.create({ name , age: 10 }) // 만들어주고 u를 갱신 합니다.
-  if (u.age > 12) throw new Error(`${u.age}는 나이가 너무 많습니다.`)
-  const ur = await User.updateOne({ _id: u._id }, { $inc: { age: 1 }}) // age를 증가시키고 ur(user result)에 결과값을 담아놓습니다.
-  if (!ur.nModified) throw new Error('수정된 것이 없네요..') // 수정된 값이 없다면 에러와 함께 내보냅니다.
-  u = await User.findOne({ _id: u._id }) // age가 증가 된 것으로 갱신해줍니다.
-  const token = await signToken(u, key) // 받아 두었던 u로 토큰을 만듭니다.
-  const v = await verifyToken(token, key)
-  return v
-}
-
-getToken('aaa')
-  .then(v => console.log(v))
-  .catch(err => console.error(err.message))
+// const getToken = async (name) => {
+//   let u = await User.findOne({ name }) // name: name을 축약하고 await로 기다려 줍니다.
+//   if (!u) u = await User.create({ name , age: 10 }) // 만들어주고 u를 갱신 합니다.
+//   if (u.age > 12) throw new Error(`${u.age}는 나이가 너무 많습니다.`)
+//   const ur = await User.updateOne({ _id: u._id }, { $inc: { age: 1 }}) // age를 증가시키고 ur(user result)에 결과값을 담아놓습니다.
+//   if (!ur.nModified) throw new Error('수정된 것이 없네요..') // 수정된 값이 없다면 에러와 함께 내보냅니다.
+//   u = await User.findOne({ _id: u._id }) // age가 증가 된 것으로 갱신해줍니다.
+//   const token = await signToken(u, key) // 받아 두었던 u로 토큰을 만듭니다.
+//   const v = await verifyToken(token, key)
+//   return v
+// }
+//
+// getToken('aaa')
+//   .then(v => console.log(v))
+//   .catch(err => console.error(err.message))

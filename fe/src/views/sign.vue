@@ -42,6 +42,7 @@ export default {
           if (!r.data.success) return console.error(r.data.msg)
           localStorage.setItem('token', r.data.token)
           this.$router.push('/header')
+          // location.href = '/header'
         })
         .catch(e => console.error(e.message))
     }

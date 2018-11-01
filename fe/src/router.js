@@ -19,27 +19,39 @@ export default new Router({
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/user.vue')
+      component: () => import(/* webpackChunkName: "about" */ './views/user')
     },
     {
       path: '/group-bg',
       name: 'group-bg',
-      component: () => import('./views/group-bg.vue')
+      component: () => import('./views/group-bg')
     },
     {
       path: '/header',
       name: '헤더',
-      component: () => import('./views/header.vue')
+      component: () => import('./views/header'),
+      // beforeEnter: authCheck
+      beforeEnter: (to, from, next) => {
+        // console.log(to)
+        // console.log(from)
+        if (!localStorage.getItem('token')) return next('block')
+        next()
+      }
+    },
+    {
+      path: '/block',
+      name: '차단',
+      component: () => import('./views/block')
     },
     {
       path: '/sign',
       name: '로그인',
-      component: () => import('./views/sign.vue')
+      component: () => import('./views/sign')
     },
     {
       path: '*',
       name: 'e404',
-      component: () => import('./views/e404.vue')
+      component: () => import('./views/e404')
     }
   ]
 })

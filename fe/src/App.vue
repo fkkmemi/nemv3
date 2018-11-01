@@ -49,7 +49,7 @@
       <router-view/>
     </v-content>
     <v-footer fixed app>
-      <span>&copy; 2017</span>
+      <span>&copy; 2017 {{$store.state.token}}</span>
     </v-footer>
   </v-app>
 </template>
@@ -91,7 +91,8 @@ export default {
   },
   methods: {
     signOut () {
-      localStorage.removeItem('token')
+      // localStorage.removeItem('token')
+      this.$store.commit('delToken')
       this.$router.push('/')
     }
   }

@@ -5,9 +5,11 @@ const jwt = require('jsonwebtoken');
 const cfg = require('../../../config')
 
 router.use('/sign', require('./sign'))
+router.use('/manage', require('./manage'))
 
 const verifyToken = (t) => {
   return new Promise((resolve, reject) => {
+    if (!t) resolve({ id: 'guest', name: '손님', lv: 3 })
     if ((typeof t) !== 'string') reject(new Error('문자가 아닌 토큰 입니다.'))
     if (t.length < 10) resolve({ id: 'guest', name: '손님', lv: 3 })
     jwt.verify(t, cfg.secretKey, (err, v) => {
@@ -21,7 +23,7 @@ router.all('*', function(req, res, next) {
   const token = req.headers.authorization
   verifyToken(token)
     .then(v => {
-      // console.log(v)
+      console.log(v)
       req.user = v
       next()
     })

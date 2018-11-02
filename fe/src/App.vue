@@ -64,9 +64,30 @@ export default {
       items: [
         {
           icon: 'home',
-          title: '홈aaa',
+          title: 'lv0',
           to: {
             path: '/'
+          }
+        },
+        {
+          icon: 'home',
+          title: 'lv1',
+          to: {
+            path: '/lv1'
+          }
+        },
+        {
+          icon: 'home',
+          title: 'lv2',
+          to: {
+            path: '/lv2'
+          }
+        },
+        {
+          icon: 'home',
+          title: 'lv3',
+          to: {
+            path: '/lv3'
           }
         },
         {
@@ -78,11 +99,26 @@ export default {
         },
         {
           icon: 'face',
-          title: 'header',
+          title: '페이지관리',
           to: {
-            path: '/header'
+            path: '/page'
           }
         }
+        // ,
+        // {
+        //   icon: 'home',
+        //   title: '홈aaa',
+        //   to: {
+        //     path: '/home'
+        //   }
+        // },
+        // {
+        //   icon: 'face',
+        //   title: 'header',
+        //   to: {
+        //     path: '/header'
+        //   }
+        // }
       ],
       title: this.$apiRootPath
     }

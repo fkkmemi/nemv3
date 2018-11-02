@@ -10,9 +10,9 @@ router.post('/', function(req, res, next) {
     .then((r) => {
       if (!r) return Page.create({ name: to })
       if (req.user.lv > r.lv) throw new Error(`${to} 페이지 이용 자격이 없습니다.`)
-      return Promise.resolve(r)
+      return Page.updateOne({ _id: r._id }, { $inc: { viewCnt: 1 } })
     })
-    .then((r) => {
+    .then(() => {
       res.send({ success: true, d: req.user })
     })
     .catch((e) => {

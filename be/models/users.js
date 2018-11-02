@@ -17,6 +17,7 @@ const User = mongoose.model('User', userSchema)
 
 User.findOne({ id: cfg.admin.id })
   .then((r) => {
+    console.log(r)
     if (!r) return User.create({ id: cfg.admin.id, pwd: cfg.admin.pwd, name: cfg.admin.name, lv: 0 })
     if (r.lv === undefined) return User.updateOne({ _id: r._id }, { $set: { lv: 0, inCnt: 0 } }) // 임시.. 관리자 계정 레벨 0으로..
     return Promise.resolve(null)

@@ -17,13 +17,21 @@ const verifyToken = (t) => {
 router.all('*', function(req, res, next) {
   // 토큰 검사
   const token = req.headers.authorization
+  if (!token) return next()
   verifyToken(token)
     .then(v => {
-      console.log(v)
+      // console.log(v)
+      req.user = v
       next()
     })
-    .catch(e => res.send({ success: false, msg: e.message }))  
-});
+    .catch(e => res.send({ success: false, msg: e.message }))
+})
+
+router.use('/page', require('./page'))
+router.all('*', function(req, res, next) {
+  if (!req.user) res.send({ success: false, msg: '권한이 없습니다.' })
+})
+
 router.use('/test', require('./test'))
 router.use('/user', require('./user'))
 

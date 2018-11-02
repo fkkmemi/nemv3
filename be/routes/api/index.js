@@ -8,6 +8,8 @@ router.use('/sign', require('./sign'))
 
 const verifyToken = (t) => {
   return new Promise((resolve, reject) => {
+    if ((typeof t) !== 'string') reject(new Error('문자가 아닌 토큰 입니다.'))
+    if (t.length < 10) resolve({ id: 'guest', name: '손님', lv: 3 })
     jwt.verify(t, cfg.secretKey, (err, v) => {
       if (err) reject(err)
       resolve(v)
@@ -17,7 +19,6 @@ const verifyToken = (t) => {
 router.all('*', function(req, res, next) {
   // 토큰 검사
   const token = req.headers.authorization
-  if (!token) return next()
   verifyToken(token)
     .then(v => {
       // console.log(v)
@@ -29,10 +30,15 @@ router.all('*', function(req, res, next) {
 
 router.use('/page', require('./page'))
 router.all('*', function(req, res, next) {
-  if (!req.user) res.send({ success: false, msg: '권한이 없습니다.' })
+  if (req.user.lv > 2) return res.send({ success: false, msg: '권한이 없습니다.' })
+  next()
 })
 
 router.use('/test', require('./test'))
+router.all('*', function(req, res, next) {
+  if (req.user.lv > 0) return res.send({ success: false, msg: '권한이 없습니다.' })
+  next()
+})
 router.use('/user', require('./user'))
 
 router.all('*', function(req, res, next) {

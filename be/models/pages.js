@@ -5,7 +5,7 @@ mongoose.set('useCreateIndex', true)
 const pageSchema = new mongoose.Schema({
   name: { type: String, default: '', index: true },
   viewCnt: { type: Number, default: 0 },
-  lv: { type: Number, default: 2 }
+  lv: { type: Number, default: 0 }
 })
 
 module.exports = mongoose.model('Page', pageSchema)

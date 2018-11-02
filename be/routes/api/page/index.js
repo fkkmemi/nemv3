@@ -11,17 +11,17 @@ router.post('/', function(req, res, next) {
   Page.findOne({ name })
     .then((r) => {
       if (!r) {
-        if (req.user.lv) throw new Error(`${name} 페이지 생성이 안되었습니다.`)
+        if (req.user.lv) throw new Error(`페이지 ${name} 생성이 안되었습니다.`)
         return Page.create({ name })
       }
-      if (r.lv < req.user.lv) throw new Error(`${name} 페이지 이용 자격이 없습니다.`)
+      if (r.lv < req.user.lv) throw new Error(`페이지 ${name} 이용 자격이 없습니다.`)
       return Page.updateOne({ _id: r._id }, { $inc: { viewCnt: 1 } })
     })
     .then(() => {
-      return Page.find()
-    })
-    .then((rs) => {
-      console.log(rs)
+    //   return Page.find()
+    // })
+    // .then((rs) => {
+    //   console.log(rs)
       res.send({ success: true, d: req.user })
     })
     .catch((e) => {

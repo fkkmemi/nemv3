@@ -4,6 +4,7 @@ var router = express.Router();
 const Page = require('../../../models/pages')
 
 router.post('/', function(req, res, next) {
+  // return res.send({ success: true, d: req.user })
   const { name } = req.body
   Page.findOne({ name })
     .then((r) => {

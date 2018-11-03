@@ -29,4 +29,18 @@ User.findOne({ id: cfg.admin.id })
     console.error(e.message)
   })
 
+  User.findOne({ id: 'lv2' })
+    .then((r) => {
+      // console.log(r)
+      if (!r) return User.create({ id: 'lv2', pwd: '1234', name: 'lv2', lv: 2 })
+      // if (r.lv === undefined) return User.updateOne({ _id: r._id }, { $set: { lv: 0, inCnt: 0 } }) // 임시.. 관리자 계정 레벨 0으로..
+      return Promise.resolve(null)
+    })
+    .then((r) => {
+      if (r) console.log(`admin:${r.id} created!`)
+    })
+    .catch((e) => {
+      console.error(e.message)
+    })
+
 module.exports = User

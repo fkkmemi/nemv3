@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app :dark="siteDark">
     <v-navigation-drawer
       persistent
       v-model="drawer"
@@ -27,7 +27,7 @@
       app
     >
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title v-text="title"></v-toolbar-title>
+      <v-toolbar-title v-text="siteTitle"></v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-menu bottom left>
@@ -49,7 +49,7 @@
       <router-view/>
     </v-content>
     <v-footer fixed app>
-      <span>&copy; 2017 {{$store.state.token}}</span>
+      <span>&copy; 2017 {{siteCopyright}}</span>
     </v-footer>
   </v-app>
 </template>
@@ -61,6 +61,9 @@ export default {
   data () {
     return {
       drawer: null,
+      siteTitle: '기다리는중',
+      siteCopyright: '기다리는중',
+      siteDark: false,
       items: [
         {
           icon: 'home',
@@ -103,6 +106,13 @@ export default {
           to: {
             path: '/page'
           }
+        },
+        {
+          icon: 'face',
+          title: '사이트관리',
+          to: {
+            path: '/site'
+          }
         }
         // ,
         // {
@@ -124,12 +134,22 @@ export default {
     }
   },
   mounted () {
+    this.getSite()
   },
   methods: {
     signOut () {
       // localStorage.removeItem('token')
       this.$store.commit('delToken')
       this.$router.push('/')
+    },
+    getSite () {
+      this.$axios.get('/site')
+        .then(r => {console.log(r.data.d)
+          this.siteTitle = r.data.d.title
+          this.siteCopyright = r.data.d.copyright
+          this.siteDark = r.data.d.dark
+        })
+        .catch(e => console.error(e.message))
     }
   }
 }

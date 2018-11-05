@@ -99,7 +99,7 @@ export default {
   },
   methods: {
     getPages () {
-      this.$axios.get(`${this.$apiRootPath}manage/page`)
+      this.$axios.get('manage/page')
         .then((r) => {
           this.pages = r.data.pages
         })
@@ -115,7 +115,7 @@ export default {
     },
     putPage () {
       this.dialog = false
-      this.$axios.put(`${this.$apiRootPath}manage/page/${this.putId}`, {
+      this.$axios.put(`manage/page/${this.putId}`, {
         name: this.pageName, lv: this.pageLv
       })
         .then((r) => {
@@ -127,7 +127,7 @@ export default {
         })
     },
     delPage (id) {
-      this.$axios.delete(`${this.$apiRootPath}manage/page/${id}`)
+      this.$axios.delete(`manage/page/${id}`)
         .then((r) => {
           this.pop('페이지 삭제 완료')
           this.getPages()

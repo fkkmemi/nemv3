@@ -107,7 +107,7 @@ export default {
   },
   methods: {
     getUsers () {
-      this.$axios.get(`${this.$apiRootPath}manage/user`)
+      this.$axios.get('manage/user')
         .then((r) => {
           this.users = r.data.users
         })
@@ -124,7 +124,7 @@ export default {
     },
     putUser () {
       this.dialog = false
-      this.$axios.put(`${this.$apiRootPath}manage/user/${this.putId}`, {
+      this.$axios.put(`manage/user/${this.putId}`, {
         name: this.userName, lv: this.userLv, age: this.userAge
       })
         .then((r) => {
@@ -136,7 +136,7 @@ export default {
         })
     },
     delUser (id) {
-      this.$axios.delete(`${this.$apiRootPath}manage/user/${id}`)
+      this.$axios.delete(`manage/user/${id}`)
         .then((r) => {
           this.pop('사용자 삭제 완료')
           this.getUsers()

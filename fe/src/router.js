@@ -32,7 +32,7 @@ axios.interceptors.response.use(function (response) {
 
 const pageCheck = (to, from, next) => {
   // return next()
-  axios.post(`${apiRootPath}page`, { name: to.path.replace('/', '') }, { headers: { Authorization: localStorage.getItem('token') } })
+  axios.post('page', { name: to.path.replace('/', '') }, { headers: { Authorization: localStorage.getItem('token') } })
     .then((r) => {
       if (!r.data.success) throw new Error(r.data.msg)
       next()

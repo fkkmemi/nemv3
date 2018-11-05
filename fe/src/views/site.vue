@@ -105,7 +105,7 @@ export default {
   },
   methods: {
     getSites () {
-      this.$axios.get(`${this.$apiRootPath}manage/site`)
+      this.$axios.get('manage/site')
         .then((r) => {
           this.sites = r.data.sites
         })
@@ -122,7 +122,7 @@ export default {
     },
     putSite () {
       this.dialog = false
-      this.$axios.put(`${this.$apiRootPath}manage/site/${this.putId}`, {
+      this.$axios.put(`manage/site/${this.putId}`, {
         title: this.siteTitle, copyright: this.siteCopyright, dark: this.siteDark
       })
         .then((r) => {

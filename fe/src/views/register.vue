@@ -128,7 +128,7 @@ export default {
           if (!r.data.success) throw new Error('서버가 거부했습니다.')
           this.pop('가입 완료 되었습니다.', 'success')
 
-          this.$route.push('/sign')
+          this.$router.push('/sign')
         })
         .catch(e => this.pop(e.message, 'warning'))
     },

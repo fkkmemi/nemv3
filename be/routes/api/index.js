@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const cfg = require('../../../config')
 
 router.use('/sign', require('./sign'))
+router.use('/register', require('./register'))
 router.use('/site', require('./site'))
 
 const verifyToken = (t) => {

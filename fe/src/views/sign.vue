@@ -4,7 +4,7 @@
       <v-flex xs12 sm8 md4>
         <v-card class="elevation-12">
           <v-toolbar dark color="primary">
-            <v-toolbar-title>Login form</v-toolbar-title>
+            <v-toolbar-title>로그인 하기</v-toolbar-title>
             <v-spacer></v-spacer>
           </v-toolbar>
           <v-card-text>
@@ -24,8 +24,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   data () {
     return {
@@ -37,7 +35,7 @@ export default {
   },
   methods: {
     signIn () {
-      axios.post(`${this.$apiRootPath}sign/in`, this.form)
+      this.$axios.post(`${this.$apiRootPath}sign/in`, this.form)
         .then(r => {
           if (!r.data.success) return console.error(r.data.msg)
           localStorage.setItem('token', r.data.token)

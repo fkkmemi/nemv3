@@ -12,8 +12,16 @@ module.exports = {
     pwd: '1234',
     name: '관리자'
   },
-  secretKey: '아주 어려운 토큰 발급용 키'
+  jwt: {    
+    secretKey: '아주 어려운 토큰 발급용 키',
+    issuer: 'xxx.com',
+    algorithm: 'HS256'
+  }
 }
 ```
 
-이런식으로 디비 연결 문자열을 작성해야 웹서버가 정상 구동됨.
+- dbUrl: 데이터베이스 주소
+- admin: 최초 웹 구동시 생성될 관리자
+- secretKey: 토큰 발행과 비밀번호 암호화용
+- issuer: 발급자
+- algorithm: 암호화 방식

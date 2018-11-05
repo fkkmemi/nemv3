@@ -49,14 +49,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'lv0',
-      component: () => import('./views/lv0'),
-      beforeEnter: pageCheck
-    },
-    {
-      path: '/lv1',
-      name: 'lv1',
-      component: () => import('./views/lv1'),
+      name: 'lv3',
+      component: () => import('./views/lv3'),
       beforeEnter: pageCheck
     },
     {
@@ -66,9 +60,15 @@ export default new Router({
       beforeEnter: pageCheck
     },
     {
-      path: '/lv3',
-      name: 'lv3',
-      component: () => import('./views/lv3'),
+      path: '/lv1',
+      name: 'lv1',
+      component: () => import('./views/lv1'),
+      beforeEnter: pageCheck
+    },
+    {
+      path: '/lv0',
+      name: 'lv0',
+      component: () => import('./views/lv0'),
       beforeEnter: pageCheck
     },
     {

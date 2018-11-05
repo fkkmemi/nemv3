@@ -71,17 +71,10 @@ export default {
       siteDark: false,
       items: [
         {
-          icon: 'motorcycle',
-          title: '관리자용 페이지',
+          icon: 'home',
+          title: '손님용 페이지',
           to: {
             path: '/'
-          }
-        },
-        {
-          icon: 'pan_tool',
-          title: '슈퍼유저용 페이지',
-          to: {
-            path: '/lv1'
           }
         },
         {
@@ -92,10 +85,17 @@ export default {
           }
         },
         {
-          icon: 'home',
-          title: '손님용 페이지',
+          icon: 'pan_tool',
+          title: '슈퍼유저용 페이지',
           to: {
-            path: '/lv3'
+            path: '/lv1'
+          }
+        },
+        {
+          icon: 'motorcycle',
+          title: '관리자용 페이지',
+          to: {
+            path: '/lv0'
           }
         },
         {

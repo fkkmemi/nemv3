@@ -7,6 +7,11 @@ const User = require('../../../models/users')
 
 const signToken = (id, lv, name) => {
   return new Promise((resolve, reject) => {
+    // const o = {
+    //   issuer: cfg.issuer,
+    //   subject: 'user-token',
+    //   // expiresIn: 60 * 60 * 24 // 추후 재발급 로직일 때..
+    // }
     jwt.sign({ id, lv, name }, cfg.secretKey, (err, token) => {
       if (err) reject(err)
       resolve(token)

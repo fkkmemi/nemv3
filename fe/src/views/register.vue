@@ -10,53 +10,69 @@
           <v-card-text>
             <form>
               <v-text-field
-                v-validate="'required|max:10'"
-                v-model="name"
-                :counter="10"
-                :error-messages="errors.collect('name')"
-                label="Name"
-                data-vv-name="name"
+                v-validate="'required|min:4|max:20'"
+                v-model="form.id"
+                :counter="20"
+                :error-messages="errors.collect('id')"
+                label="아이디"
+                data-vv-name="id"
                 required
               ></v-text-field>
               <v-text-field
-                v-validate="'required|email'"
-                v-model="email"
-                :error-messages="errors.collect('email')"
-                label="E-mail"
-                data-vv-name="email"
+                v-validate="'required|min:6|max:40'"
+                v-model="form.pwd"
+                :counter="40"
+                :error-messages="errors.collect('pwd')"
+                label="비밀번호"
+                data-vv-name="pwd"
+                required
+                type="password"
+              ></v-text-field>
+              <v-text-field
+                v-validate="'required|min:1|max:40'"
+                v-model="form.name"
+                :counter="40"
+                :error-messages="errors.collect('name')"
+                label="이름"
+                data-vv-name="name"
                 required
               ></v-text-field>
-              <v-select
-                v-validate="'required'"
-                :items="items"
-                v-model="select"
-                :error-messages="errors.collect('select')"
-                label="Select"
-                data-vv-name="select"
-                required
-              ></v-select>
+
               <v-checkbox
                 v-validate="'required'"
-                v-model="checkbox"
-                :error-messages="errors.collect('checkbox')"
+                v-model="agree"
+                :error-messages="errors.collect('agree')"
                 value="1"
-                label="Option"
-                data-vv-name="checkbox"
+                label="약관동의: 암호화도 안되어 있는 사이트인데 정말 가입하겠습니까?"
+                data-vv-name="agree"
                 type="checkbox"
                 required
               ></v-checkbox>
 
-              <v-btn @click="submit">submit</v-btn>
-              <v-btn @click="clear">clear</v-btn>
+              <v-btn @click="submit">가입</v-btn>
+              <v-btn @click="clear">초기화</v-btn>
             </form>
           </v-card-text>
         </v-card>
       </v-flex>
     </v-layout>
+    <v-snackbar
+      v-model="sb.act"
+    >
+      {{ sb.msg }}
+      <v-btn
+        :color="sb.color"
+        flat
+        @click="sb.act = false"
+      >
+        닫기
+      </v-btn>
+    </v-snackbar>
   </v-container>
 </template>
 
 <script>
+import ko from 'vee-validate/dist/locale/ko'
 
 export default {
   $_veeValidate: {
@@ -64,49 +80,68 @@ export default {
   },
 
   data: () => ({
-    name: '',
-    email: '',
-    select: null,
-    items: [
-      'Item 1',
-      'Item 2',
-      'Item 3',
-      'Item 4'
-    ],
-    checkbox: null,
+    form: {
+      id: '',
+      name: '',
+      pwd: ''
+    },
+    sb: {
+      act: false,
+      msg: '',
+      color: 'warning'
+    },
+    agree: null,
     dictionary: {
+      messages: ko.messages,
       attributes: {
-        email: 'E-mail Address'
+        id: '아이디',
+        pwd: '비밀번호',
+        name: '이름',
+        agree: '약관동의'
         // custom attributes
       },
       custom: {
-        name: {
-          required: () => 'Name can not be empty',
-          max: 'The name field may not be greater than 10 characters'
-          // custom messages
-        },
-        select: {
-          required: 'Select field is required'
-        }
+        // name: {
+        //   required: () => 'Name can not be empty',
+        //   max: 'The name field may not be greater than 10 characters'
+        //   // custom messages
+        // },
+        // select: {
+        //   required: 'Select field is required'
+        // }
       }
     }
   }),
 
   mounted () {
-    this.$validator.localize('en', this.dictionary)
+    this.$validator.localize('ko', this.dictionary)
   },
 
   methods: {
     submit () {
       this.$validator.validateAll()
-        .then(r => console.log(r))
-        .catch(e => console.error(e.message))
+        .then(r => {
+          if (!r) throw new Error('모두 기입해주세요')
+          return this.$axios.post('register', this.form)
+        })
+        .then(r => {
+          if (!r.data.success) throw new Error('서버가 거부했습니다.')
+          this.pop('가입 완료 되었습니다.', 'success')
+
+          this.$route.push('/sign')
+        })
+        .catch(e => this.pop(e.message, 'warning'))
+    },
+    pop (m, cl) {
+      this.sb.act = true
+      this.sb.msg = m
+      this.sb.color = cl
     },
     clear () {
-      this.name = ''
-      this.email = ''
-      this.select = null
-      this.checkbox = null
+      this.form.id = ''
+      this.form.pwd = ''
+      this.form.name = ''
+      this.agree = null
       this.$validator.reset()
     }
   }

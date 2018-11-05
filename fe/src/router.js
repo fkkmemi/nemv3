@@ -124,6 +124,11 @@ export default new Router({
       component: () => import('./views/sign')
     },
     {
+      path: '/register',
+      name: '회원가입',
+      component: () => import('./views/register')
+    },
+    {
       path: '*',
       name: 'e404',
       component: () => import('./views/e404')

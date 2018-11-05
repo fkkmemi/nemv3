@@ -126,7 +126,7 @@ export default {
         title: this.siteTitle, copyright: this.siteCopyright, dark: this.siteDark
       })
         .then((r) => {
-          this.pop('페이지 수정 완료')
+          this.pop('사이트 수정 완료')
           this.getSites()
         })
         .catch((e) => {
@@ -134,14 +134,7 @@ export default {
         })
     },
     delSite (id) {
-      this.$axios.delete(`${this.$apiRootPath}manage/site/${id}`)
-        .then((r) => {
-          this.pop('페이지 삭제 완료')
-          this.getSites()
-        })
-        .catch((e) => {
-          this.pop(e.message)
-        })
+      this.pop('사이트 삭제하면 안되요!')
     },
     pop (msg) {
       this.snackbar = true

@@ -54,7 +54,7 @@
       <router-view/>
     </v-content>
     <v-footer fixed app>
-      <span>&copy; 2017 {{siteCopyright}}</span>
+      <span>{{siteCopyright}}</span>
     </v-footer>
   </v-app>
 </template>
@@ -71,29 +71,29 @@ export default {
       siteDark: false,
       items: [
         {
-          icon: 'home',
-          title: 'lv0',
+          icon: 'motorcycle',
+          title: '관리자용 페이지',
           to: {
             path: '/'
           }
         },
         {
-          icon: 'home',
-          title: 'lv1',
+          icon: 'pan_tool',
+          title: '슈퍼유저용 페이지',
           to: {
             path: '/lv1'
           }
         },
         {
-          icon: 'home',
-          title: 'lv2',
+          icon: 'pets',
+          title: '일반유저용 페이지',
           to: {
             path: '/lv2'
           }
         },
         {
           icon: 'home',
-          title: 'lv3',
+          title: '손님용 페이지',
           to: {
             path: '/lv3'
           }
@@ -106,14 +106,14 @@ export default {
           }
         },
         {
-          icon: 'face',
+          icon: 'pageview',
           title: '페이지관리',
           to: {
             path: '/page'
           }
         },
         {
-          icon: 'face',
+          icon: 'settings',
           title: '사이트관리',
           to: {
             path: '/site'

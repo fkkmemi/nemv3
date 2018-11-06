@@ -4,7 +4,7 @@ var router = express.Router();
 const User = require('../../../models/users')
 
 router.get('/', function(req, res, next) {
-  User.find()
+  User.find().select('-pwd')
     .then(r => {
       res.send({ success: true, users: r })
     })

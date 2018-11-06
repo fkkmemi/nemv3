@@ -216,3 +216,8 @@ const verifyToken = (t, k) => {
 // getToken('aaa')
 //   .then(v => console.log(v))
 //   .catch(err => console.error(err.message))
+
+// const crypto = require('crypto');
+// const bf = Buffer.alloc(64)
+// const s = crypto.randomFillSync(bf)
+// console.log(s.toString('hex'))

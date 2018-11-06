@@ -90,25 +90,6 @@ export default new Router({
       beforeEnter: pageCheck
     },
     {
-      path: '/home',
-      name: 'home',
-      component: Home,
-      beforeEnter: pageCheck
-    },
-    {
-      path: '/group-bg',
-      name: 'group-bg',
-      component: () => import('./views/group-bg'),
-      beforeEnter: pageCheck
-    },
-    {
-      path: '/header',
-      name: '헤더',
-      component: () => import('./views/header'),
-      // beforeEnter: authCheck
-      beforeEnter: pageCheck
-    },
-    {
       path: '/block/:msg',
       name: '차단',
       component: () => import('./views/block')

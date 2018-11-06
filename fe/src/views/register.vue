@@ -125,7 +125,7 @@ export default {
           return this.$axios.post('register', this.form)
         })
         .then(r => {
-          if (!r.data.success) throw new Error('서버가 거부했습니다.')
+          if (!r.data.success) throw new Error(r.data.msg)
           this.pop('가입 완료 되었습니다.', 'success')
 
           this.$router.push('/sign')

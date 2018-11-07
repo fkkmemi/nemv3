@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import axios from 'axios'
-import Home from './views/Home.vue'
 
 Vue.use(Router)
 
@@ -75,6 +74,12 @@ export default new Router({
       path: '/user',
       name: '사용자',
       component: () => import('./views/user'),
+      beforeEnter: pageCheck
+    },
+    {
+      path: '/users',
+      name: 'manUsers',
+      component: () => import('./views/users'),
       beforeEnter: pageCheck
     },
     {

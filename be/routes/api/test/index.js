@@ -20,7 +20,7 @@ router.delete('/delAll', function(req, res, next) {
     })
     .then(r => {
       console.log(r)
-      res.send({ success: true, msg: '싹다지움..' })
+      res.send({ success: true, msg: '싹다지움..', token: req.token })
     })
     .catch(e => {
       console.log(e.message)
@@ -39,7 +39,7 @@ router.put('/pageAuth', function(req, res, next) {
     })
     .then(r => {
       console.log(r)
-      res.send({ success: true, msg: '싹다지움..' })
+      res.send({ success: true, msg: '싹다지움..', token: req.token })
     })
     .catch(e => {
       console.log(e.message)

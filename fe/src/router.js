@@ -23,6 +23,9 @@ axios.interceptors.request.use(function (config) {
 // Add a response interceptor
 axios.interceptors.response.use(function (response) {
   // Do something with response data
+  const token = response.data.token
+  console.log(token)
+  if (token) localStorage.setItem('token', token)
   return response
 }, function (error) {
   // Do something with response error

@@ -143,22 +143,22 @@ const key = '베리베리어려운키'
 //   .then(r => console.log(r))
 //   .catch(err => console.error(err))
 
-const signToken = (u, k) => {
-  return new Promise((resolve, reject) => {
-    jwt.sign({ name: u.name, age: u.age }, k, (err, token) => {
-      if (err) reject(err)
-      resolve(token)
-    })
-  })
-}
-const verifyToken = (t, k) => {
-  return new Promise((resolve, reject) => {
-    jwt.verify(t, k, (err, v) => {
-      if (err) reject(err)
-      resolve(v)
-    })
-  })
-}
+// const signToken = (u, k) => {
+//   return new Promise((resolve, reject) => {
+//     jwt.sign({ name: u.name, age: u.age }, k, (err, token) => {
+//       if (err) reject(err)
+//       resolve(token)
+//     })
+//   })
+// }
+// const verifyToken = (t, k) => {
+//   return new Promise((resolve, reject) => {
+//     jwt.verify(t, k, (err, v) => {
+//       if (err) reject(err)
+//       resolve(v)
+//     })
+//   })
+// }
 
 // 프라미스
 // let user
@@ -221,3 +221,25 @@ const verifyToken = (t, k) => {
 // const bf = Buffer.alloc(64)
 // const s = crypto.randomFillSync(bf)
 // console.log(s.toString('hex'))
+
+// const moment = require('moment')
+
+// moment.locale('ko')
+//
+// console.log(moment().fromNow())
+// console.log(moment().add(-5, 'hours').fromNow())
+// console.log(moment().add(5, 'hours').fromNow())
+//
+// moment.locale('ko')
+// console.log(moment().fromNow())
+// console.log(moment().add(-40, 'hours').fromNow())
+// console.log(moment().add(10, 'hours').fromNow())
+
+// const ct = moment() // 현재시간
+// const bt = moment().add(-1, 'hours') // 한시간전
+//
+// console.log(ct.diff(bt))
+// console.log(ct.diff(bt,'seconds'))
+//
+// console.log(bt.diff(ct))
+// console.log(bt.diff(ct,'seconds'))

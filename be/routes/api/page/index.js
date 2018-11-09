@@ -20,7 +20,7 @@ router.post('/', function(req, res, next) {
     // })
     // .then((rs) => {
     //   console.log(rs)
-      res.send({ success: true, d: req.user })
+      res.send({ success: true, d: req.user, token: req.token })
     })
     .catch((e) => {
       res.send({ success: false, msg: e.message })

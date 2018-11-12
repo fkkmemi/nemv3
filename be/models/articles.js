@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const cfg = require('../../config')
 
 mongoose.set('useCreateIndex', true)
 const articleSchema = new mongoose.Schema({
@@ -11,8 +10,8 @@ const articleSchema = new mongoose.Schema({
   },
   ip: { type: String, default: '' },
   comments: [],
-  _user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  _board: { type: mongoose.Schema.Types.ObjectId, ref: 'Board' }
+  _user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', index: true },
+  _board: { type: mongoose.Schema.Types.ObjectId, ref: 'Board', index: true }
 })
 
 module.exports = mongoose.model('Article', articleSchema)

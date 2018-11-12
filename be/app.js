@@ -37,7 +37,6 @@ app.use(function(err, req, res, next) {
 });
 
 const mongoose = require('mongoose')
-const User = require('./models/users')
 
 console.log(`${process.env.NODE_ENV} started!`)
 
@@ -243,3 +242,24 @@ const key = '베리베리어려운키'
 //
 // console.log(bt.diff(ct))
 // console.log(bt.diff(ct,'seconds'))
+
+
+const User = require('./models/users')
+const Board = require('./models/boards')
+const Article = require('./models/articles')
+
+// User.findOne()
+//   .then(r => console.log(r.id, r._id)) // 5be1c7eb0ff40640c81ecc0d
+//
+//
+// Board.findOne()
+//   .then(r => console.log(r.name, r._id)) // 5be97f5f8fb2da704ad95273
+
+// Article.create({ title: 'aaa', content: 'kkfjf', _user: '5be1c7eb0ff40640c81ecc0d', _board: '5be97f5f8fb2da704ad95273' })
+//   .then(r => console.log(r))
+
+
+Article.find({ _board: '5be97f5f8fb2da704ad95273'})
+  .populate('_user', 'name')
+  .populate('_board')
+  .then(r => console.log(r))

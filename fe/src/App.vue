@@ -118,6 +118,13 @@ export default {
           to: {
             path: '/site'
           }
+        },
+        {
+          icon: 'settings',
+          title: '게시판관리',
+          to: {
+            path: '/manage/boards'
+          }
         }
         // ,
         // {

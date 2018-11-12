@@ -43,7 +43,7 @@ export default {
       this.$axios.post('sign/in', this.form)
         .then(r => {
           if (!r.data.success) return console.error(r.data.msg)
-          console.log(r.data)
+          // console.log(r.data)
           localStorage.setItem('token', r.data.token)
           this.$store.commit('getToken')
           this.$router.push('/')

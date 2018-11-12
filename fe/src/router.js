@@ -24,7 +24,7 @@ axios.interceptors.request.use(function (config) {
 axios.interceptors.response.use(function (response) {
   // Do something with response data
   const token = response.data.token
-  console.log(token)
+  // console.log(token)
   if (token) localStorage.setItem('token', token)
   return response
 }, function (error) {
@@ -82,7 +82,7 @@ export default new Router({
     {
       path: '/users',
       name: 'manUsers',
-      component: () => import('./views/users'),
+      component: () => import('./views/user'),
       beforeEnter: pageCheck
     },
     {
@@ -95,6 +95,12 @@ export default new Router({
       path: '/site',
       name: '사이트',
       component: () => import('./views/site'),
+      beforeEnter: pageCheck
+    },
+    {
+      path: '/manage/boards',
+      name: 'manageBoards',
+      component: () => import('./views/manage/boards'),
       beforeEnter: pageCheck
     },
     {

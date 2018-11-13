@@ -19,6 +19,8 @@ router.get('/:_board', (req, res, next) => {
     })
 });
 
+Article.deleteMany({}).then(r => console.log(r))
+
 router.post('/:_board', (req, res, next) => {
   const _board = req.params._board
   if (!_board) return res.send({ success: false, msg: '게시판이 선택되지 않았습니다' }) // 나중에 400 bad request 처리 예제

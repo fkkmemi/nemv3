@@ -21,8 +21,8 @@
           </v-img>
         </v-card>
       </v-flex>
-      <v-flex xs12 sm6 md4>
-
+      <v-flex xs12 sm6 md4 v-for="article in articles" :key="article._id">
+        {{article}}
       </v-flex>
     </v-layout>
 
@@ -41,36 +41,26 @@
     <v-dialog v-model="dialog" persistent max-width="500px">
       <v-card>
         <v-card-title>
-          <span class="headline">게시판 추가</span>
+          <span class="headline">글 작성</span>
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>
             <v-layout wrap>
-              <v-flex xs12 sm6 md4>
+              <v-flex xs12>
                 <v-text-field
-                  label="게시판 이름"
-                  hint="당구모임"
+                  label="제목"
                   persistent-hint
                   required
-                  v-model="form.name"
+                  v-model="form.title"
                 ></v-text-field>
               </v-flex>
-              <v-flex xs12 sm6>
-                <v-text-field
-                  label="게시판 설명"
-                  hint="당구를 좋아하는 사람"
+              <v-flex xs12>
+                <v-textarea
+                  label="내용"
                   persistent-hint
                   required
-                  v-model="form.rmk"
-                ></v-text-field>
-              </v-flex>
-              <v-flex xs12 sm6>
-                <v-select
-                  :items="lvs"
-                  label="권한"
-                  required
-                  v-model="form.lv"
-                ></v-select>
+                  v-model="form.content"
+                ></v-textarea>
               </v-flex>
             </v-layout>
           </v-container>
@@ -107,15 +97,13 @@ export default {
         name: '로딩중...',
         rmk: '무엇?'
       },
-      boards: [],
+      articles: [],
       dialog: false,
       lvs: [0, 1, 2, 3],
       form: {
-        name: '',
-        rmk: '',
-        lv: 0
+        title: '',
+        content: ''
       },
-      selected: 0,
       sb: {
         act: false,
         msg: '',
@@ -130,9 +118,8 @@ export default {
     addDialog () {
       this.dialog = true
       this.form = {
-        name: '',
-        rmk: '',
-        lv: 0
+        title: '',
+        content: ''
       }
     },
     get () {
@@ -140,14 +127,16 @@ export default {
         .then(({ data }) => {
           if (!data.success) throw new Error(data.msg)
           this.board = data.d
+          this.list()
         })
         .catch((e) => {
           this.pop(e.message, 'error')
         })
     },
     add () {
-      if (!this.form.name) return this.pop('이름을 작성해주세요', 'warning')
-      this.$axios.post('manage/board', this.form)
+      if (!this.form.title) return this.pop('제목을 작성해주세요', 'warning')
+      if (!this.form.content) return this.pop('내용을 작성해주세요', 'warning')
+      this.$axios.post(`article/${this.board._id}`, this.form)
         .then((r) => {
           this.dialog = false
           this.list()
@@ -157,9 +146,9 @@ export default {
         })
     },
     list () {
-      this.$axios.get('manage/board')
+      this.$axios.get(`article/${this.board._id}`)
         .then(({ data }) => {
-          this.boards = data.ds
+          this.articles = data.ds
         })
         .catch((e) => {
           this.pop(e.message, 'error')

@@ -244,9 +244,9 @@ const key = '베리베리어려운키'
 // console.log(bt.diff(ct,'seconds'))
 
 
-const User = require('./models/users')
-const Board = require('./models/boards')
-const Article = require('./models/articles')
+// const User = require('./models/users')
+// const Board = require('./models/boards')
+// const Article = require('./models/articles')
 
 // User.findOne()
 //   .then(r => console.log(r.id, r._id)) // 5be1c7eb0ff40640c81ecc0d
@@ -259,7 +259,7 @@ const Article = require('./models/articles')
 //   .then(r => console.log(r))
 
 
-Article.find({ _board: '5be97f5f8fb2da704ad95273'})
-  .populate('_user', 'name')
-  .populate('_board')
-  .then(r => console.log(r))
+// Article.find({ _board: '5be97f5f8fb2da704ad95273'})
+//   .populate('_user', 'name')
+//   .populate('_board')
+//   .then(r => console.log(r))

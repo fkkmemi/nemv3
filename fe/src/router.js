@@ -50,51 +50,45 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
-      name: 'lv3',
-      component: () => import('./views/lv3'),
+      path: '/test/lv3',
+      name: 'testLv3',
+      component: () => import('./views/test/lv3'),
       beforeEnter: pageCheck
     },
     {
-      path: '/lv2',
-      name: 'lv2',
-      component: () => import('./views/lv2'),
+      path: '/test/lv2',
+      name: 'testLv2',
+      component: () => import('./views/test/lv2'),
       beforeEnter: pageCheck
     },
     {
-      path: '/lv1',
-      name: 'lv1',
-      component: () => import('./views/lv1'),
+      path: '/test/lv1',
+      name: 'testLv1',
+      component: () => import('./views/test/lv1'),
       beforeEnter: pageCheck
     },
     {
-      path: '/lv0',
-      name: 'lv0',
-      component: () => import('./views/lv0'),
+      path: '/test/lv0',
+      name: 'testLv0',
+      component: () => import('./views/test/lv0'),
       beforeEnter: pageCheck
     },
     {
-      path: '/user',
-      name: '사용자',
-      component: () => import('./views/user'),
+      path: '/manage/users',
+      name: 'manageUsers',
+      component: () => import('./views/manage/user'),
       beforeEnter: pageCheck
     },
     {
-      path: '/users',
-      name: 'manUsers',
-      component: () => import('./views/user'),
+      path: '/manage/pages',
+      name: 'managePages',
+      component: () => import('./views/manage/pages'),
       beforeEnter: pageCheck
     },
     {
-      path: '/page',
-      name: '페이지',
-      component: () => import('./views/page'),
-      beforeEnter: pageCheck
-    },
-    {
-      path: '/site',
-      name: '사이트',
-      component: () => import('./views/site'),
+      path: '/manage/sites',
+      name: 'manageSites',
+      component: () => import('./views/manage/sites'),
       beforeEnter: pageCheck
     },
     {
@@ -108,11 +102,11 @@ export default new Router({
       name: '차단',
       component: () => import('./views/block')
     },
-    {
-      path: '/test',
-      name: 'test',
-      component: () => import('./views/test')
-    },
+    // {
+    //   path: '/test',
+    //   name: 'test',
+    //   component: () => import('./views/test')
+    // },
     {
       path: '/sign',
       name: '로그인',

@@ -125,28 +125,28 @@ export default {
               icon: 'home',
               title: '손님용 페이지',
               to: {
-                path: '/'
+                path: '/test/lv3'
               }
             },
             {
               icon: 'pets',
               title: '일반유저용 페이지',
               to: {
-                path: '/lv2'
+                path: '/test/lv2'
               }
             },
             {
               icon: 'pan_tool',
               title: '슈퍼유저용 페이지',
               to: {
-                path: '/lv1'
+                path: '/test/lv1'
               }
             },
             {
               icon: 'motorcycle',
               title: '관리자용 페이지',
               to: {
-                path: '/lv0'
+                path: '/test/lv0'
               }
             }
           ]
@@ -159,21 +159,21 @@ export default {
               icon: 'face',
               title: '사용자관리',
               to: {
-                path: '/users'
+                path: '/manage/users'
               }
             },
             {
               icon: 'pageview',
               title: '페이지관리',
               to: {
-                path: '/page'
+                path: '/manage/pages'
               }
             },
             {
               icon: 'settings',
               title: '사이트관리',
               to: {
-                path: '/site'
+                path: '/manage/sites'
               }
             },
             {

@@ -2,7 +2,6 @@ var express = require('express');
 var createError = require('http-errors');
 var router = express.Router();
 const Board = require('../../../models/boards')
-const Article = require('../../../models/articles')
 
 router.all('*', function(req, res, next) {
   // if (req.user.lv) return res.send({ success: false, msg: '권한이 없습니다.' })

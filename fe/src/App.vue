@@ -117,9 +117,22 @@ export default {
       siteDark: false,
       items: [
         {
+          icon: 'chat',
+          title: '끄적끄적',
+          act: true,
+          subItems: [
+            {
+              icon: 'home',
+              title: '아무나',
+              to: {
+                path: '/'
+              }
+            }
+          ]
+        },
+        {
           icon: 'pan_tool',
           title: '레벨테스트',
-          act: true,
           subItems: [
             {
               icon: 'home',

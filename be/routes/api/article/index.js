@@ -4,22 +4,39 @@ var router = express.Router();
 const Board = require('../../../models/boards')
 const Article = require('../../../models/articles')
 
-router.get('/:_board', (req, res, next) => {
+router.get('/list/:_board', (req, res, next) => {
   const _board = req.params._board
+  // const { sort, order, skip, limit } = req.query
+  //
+  // if (sort === undefined || order === undefined ||  skip === undefined ||  limit === undefined) {
+  //   return res.send({ success: false, msg: '잘못된 요청입니다' })
+  // }
 
   const f = {}
   if (_board) f._board = _board
 
-  Article.find(f).populate('_user', '-pwd')
+  Article.find(f).select('-content').populate('_user', '-pwd')
     .then(rs => {
       res.send({ success: true, ds: rs, token: req.token })
     })
     .catch(e => {
       res.send({ success: false, msg: e.message })
     })
-});
+})
 
-Article.deleteMany({}).then(r => console.log(r))
+router.get('/read/:_id', (req, res, next) => {
+  const _id = req.params._id
+
+  Article.findById(_id).select('content')
+    .then(r => {
+      res.send({ success: true, d: r, token: req.token })
+    })
+    .catch(e => {
+      res.send({ success: false, msg: e.message })
+    })
+})
+
+// Article.deleteMany({}).then(r => console.log(r))
 
 router.post('/:_board', (req, res, next) => {
   const _board = req.params._board

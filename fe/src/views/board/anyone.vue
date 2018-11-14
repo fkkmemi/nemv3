@@ -36,7 +36,7 @@
           disable-initial-sort>
           <template slot="items" slot-scope="props">
             <td :class="headers[0].class">{{ id2date(props.item._id)}}</td>
-            <td :class="headers[1].class">{{ props.item.title }}</td>
+            <td :class="headers[1].class"><a small flat class="text-capitalize" left @click="read(props.item)"> {{ props.item.title }}</a></td>
             <td :class="headers[2].class">{{ props.item._user ? props.item._user.id : '손님' }}</td>
             <td :class="headers[3].class">{{ props.item.cnt.view }}</td>
             <td :class="headers[4].class">{{ props.item.cnt.like }}</td>
@@ -91,6 +91,20 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog v-model="dlRead" persistent max-width="500px">
+      <v-card>
+        <v-card-title>
+          <span class="headline">{{rd.title}}</span>
+        </v-card-title>
+        <v-card-text>
+          {{rd.content}}
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="red darken-1" flat @click.native="dlRead = false">닫기</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <v-snackbar
       v-model="sb.act"
     >
@@ -130,7 +144,7 @@ export default {
       },
       headers: [
         { text: '날짜', value: '_id', sortable: true, class: 'hidden-sm-and-down' },
-        { text: '제목', value: 'title', sortable: true },
+        { text: '제목', value: 'title', sortable: true, align: 'left' },
         { text: '글쓴이', value: '_user', sortable: false },
         { text: '조회수', value: 'cnt.view', sortable: true },
         { text: '추천', value: 'cnt.like', sortable: true }
@@ -138,7 +152,12 @@ export default {
       loading: false,
       itemTotal: 0,
       pagination: {},
-      getTotalPage: 1
+      getTotalPage: 1,
+      dlRead: false,
+      rd: {
+        title: '',
+        content: ''
+      }
     }
   },
   mounted () {
@@ -178,9 +197,23 @@ export default {
     list () {
       if (this.loading) return
       this.loading = true
-      this.$axios.get(`article/${this.board._id}`)
+      this.$axios.get(`article/list/${this.board._id}`)
         .then(({ data }) => {
           this.articles = data.ds
+          this.loading = false
+        })
+        .catch((e) => {
+          this.pop(e.message, 'error')
+          this.loading = false
+        })
+    },
+    read (atc) {
+      this.rd.title = atc.title
+      this.loading = true
+      this.$axios.get(`article/read/${atc._id}`)
+        .then(({ data }) => {
+          this.dlRead = true
+          this.rd.content = data.d.content
           this.loading = false
         })
         .catch((e) => {

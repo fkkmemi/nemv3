@@ -24,11 +24,19 @@
       <!-- <v-flex xs12 sm6 md4 v-for="article in articles" :key="article._id">
         {{article}}
       </v-flex> -->
+      <v-flex xs12 sm4 offset-sm8>
+        <v-text-field
+          label="검색"
+          append-icon="search"
+          v-model="params.search"
+          clearable
+        ></v-text-field>
+      </v-flex>
       <v-flex xs12>
         <v-data-table
           :headers="headers"
           :items="articles"
-          :total-items="itemTotal"
+          :total-items="pagination.totalItems"
           :pagination.sync="pagination"
           rows-per-page-text=""
           :loading="loading"
@@ -42,6 +50,9 @@
             <td :class="headers[4].class">{{ props.item.cnt.like }}</td>
           </template>
         </v-data-table>
+        <div class="text-xs-center pt-2">
+          <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
+        </div>
       </v-flex>
     </v-layout>
 
@@ -164,11 +175,54 @@ export default {
       getTotalPage: 1,
       dlMode: 0, // 0: read, 1: write, 2: modify
       selArticle: {},
-      ca: false
+      ca: false,
+      params: {
+        draw: 0,
+        search: '',
+        skip: 0,
+        sort: '_id',
+        order: 0,
+        limit: 1
+      },
+      timeout: null
     }
   },
   mounted () {
-    this.get()
+    this.getBoard()
+  },
+  watch: {
+    pagination: {
+      handler() {
+        this.list()
+      },
+      deep: true
+    },
+    'params.search': {
+      handler() {
+        this.delay()
+        // this.list()
+      }
+    }
+  },
+  computed: {
+    setSkip () {
+      if (this.pagination.page <= 0) return 0
+      return (this.pagination.page - 1) * this.pagination.rowsPerPage
+    },
+    setSort () {
+      let order = this.pagination.sortBy
+      if (!this.pagination.sortBy) order = '_id'
+      return order
+    },
+    setOrder () {
+      return this.pagination.descending ? -1 : 1
+    },
+    pages () {
+      if (this.pagination.rowsPerPage == null ||
+        this.pagination.totalItems == null
+      ) return 0
+      return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
+    },
   },
   methods: {
     addDialog () {
@@ -186,7 +240,7 @@ export default {
         content: this.selArticle.content
       }
     },
-    get () {
+    getBoard () {
       this.$axios.get('board/아무나')
         .then(({ data }) => {
           if (!data.success) throw new Error(data.msg)
@@ -212,10 +266,26 @@ export default {
     },
     list () {
       if (this.loading) return
+      if (!this.board._id) return
       this.loading = true
-      this.$axios.get(`article/list/${this.board._id}`)
+      // const params = {
+      //   draw: (this.params.draw += 1),
+      //   // search: this.search,
+      //   skip: this.setSkip,
+      //   limit: this.pagination.rowsPerPage,
+      //   order: this.setOrder,
+      //   sort: this.setSort
+      // }
+      this.params.draw ++
+      this.params.skip = this.setSkip
+      this.params.limit = this.pagination.rowsPerPage
+      this.params.sort = this.setSort
+      this.params.order = this.setOrder
+
+      this.$axios.get(`article/list/${this.board._id}`, { params: this.params })
         .then(({ data }) => {
           if (!data.success) throw new Error(data.msg)
+          this.pagination.totalItems = data.t
           this.articles = data.ds
           this.loading = false
         })
@@ -277,6 +347,12 @@ export default {
     id2date (val) {
       if (!val) return '잘못된 시간 정보'
       return new Date(parseInt(val.substring(0, 8), 16) * 1000).toLocaleString()
+    },
+    delay () {
+      clearTimeout(this.timeout)
+      this.timeout = setTimeout(() => {
+        this.list()
+      }, 1000)
     }
   }
 }

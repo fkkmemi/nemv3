@@ -13,7 +13,7 @@
                 <v-flex xs6 align-end flexbox>
                   <span class="headline">{{board.name}}</span>
                 </v-flex>
-                <v-flex xs6 align-end flexbox>
+                <v-flex xs6 align-end flexbox class="text-xs-right">
                   <span>{{board.rmk}}</span>
                 </v-flex>
               </v-layout>
@@ -21,8 +21,27 @@
           </v-img>
         </v-card>
       </v-flex>
-      <v-flex xs12 sm6 md4 v-for="article in articles" :key="article._id">
+      <!-- <v-flex xs12 sm6 md4 v-for="article in articles" :key="article._id">
         {{article}}
+      </v-flex> -->
+      <v-flex xs12>
+        <v-data-table
+          :headers="headers"
+          :items="articles"
+          :total-items="itemTotal"
+          :pagination.sync="pagination"
+          rows-per-page-text=""
+          :loading="loading"
+          class="text-no-wrap"
+          disable-initial-sort>
+          <template slot="items" slot-scope="props">
+            <td :class="headers[0].class">{{ id2date(props.item._id)}}</td>
+            <td :class="headers[1].class">{{ props.item.title }}</td>
+            <td :class="headers[2].class">{{ props.item._user ? props.item._user.id : '손님' }}</td>
+            <td :class="headers[3].class">{{ props.item.cnt.view }}</td>
+            <td :class="headers[4].class">{{ props.item.cnt.like }}</td>
+          </template>
+        </v-data-table>
       </v-flex>
     </v-layout>
 
@@ -108,7 +127,18 @@ export default {
         act: false,
         msg: '',
         color: 'error'
-      }
+      },
+      headers: [
+        { text: '날짜', value: '_id', sortable: true, class: 'hidden-sm-and-down' },
+        { text: '제목', value: 'title', sortable: true },
+        { text: '글쓴이', value: '_user', sortable: false },
+        { text: '조회수', value: 'cnt.view', sortable: true },
+        { text: '추천', value: 'cnt.like', sortable: true }
+      ],
+      loading: false,
+      itemTotal: 0,
+      pagination: {},
+      getTotalPage: 1
     }
   },
   mounted () {
@@ -146,18 +176,26 @@ export default {
         })
     },
     list () {
+      if (this.loading) return
+      this.loading = true
       this.$axios.get(`article/${this.board._id}`)
         .then(({ data }) => {
           this.articles = data.ds
+          this.loading = false
         })
         .catch((e) => {
           this.pop(e.message, 'error')
+          this.loading = false
         })
     },
     pop (m, c) {
       this.sb.act = true
       this.sb.msg = m
       this.sb.color = c
+    },
+    id2date (val) {
+      if (!val) return '잘못된 시간 정보'
+      return new Date(parseInt(val.substring(0, 8), 16) * 1000).toLocaleString()
     }
   }
 }

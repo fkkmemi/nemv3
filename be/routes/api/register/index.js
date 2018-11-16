@@ -1,14 +1,13 @@
-var express = require('express');
-var createError = require('http-errors');
-var router = express.Router();
+const router = require('express').Router()
+const createError = require('http-errors')
 const crypto = require('crypto')
 const User = require('../../../models/users')
 
 router.post('/', (req, res) => {
   const u = req.body
-  if (!u.id) return res.send({ success: false, msg: '아이디가 없습니다.'})
-  if (!u.pwd) return res.send({ success: false, msg: '비밀번호가 없습니다.'})
-  if (!u.name) return res.send({ success: false, msg: '이름이 없습니다.'})
+  if (!u.id) throw createError(400, '아이디가 없습니다')
+  if (!u.pwd) throw createError(400, '비밀번호가 없습니다')
+  if (!u.name) throw createError(400, '이름이 없습니다.')
 
   User.findOne({ id: u.id })
     .then((r) => {
@@ -26,9 +25,5 @@ router.post('/', (req, res) => {
       res.send({ success: false, msg: e.message })
     })
 })
-
-router.all('*', function(req, res, next) {
-  next(createError(404, '그런 api 없어'));
-});
 
 module.exports = router;

@@ -104,7 +104,7 @@ export default {
           this.pages = r.data.pages
         })
         .catch((e) => {
-          this.pop(e.message)
+          if (!e.response) this.$store.commit('pop', { msg: e.message, color: 'warning' })
         })
     },
     putDialog (page) {
@@ -119,21 +119,21 @@ export default {
         name: this.pageName, lv: this.pageLv
       })
         .then((r) => {
-          this.pop('페이지 수정 완료')
+          this.$store.commit('pop', { msg: '페이지 수정 완료', color: 'success' })
           this.getPages()
         })
         .catch((e) => {
-          this.pop(e.message)
+          if (!e.response) this.$store.commit('pop', { msg: e.message, color: 'warning' })
         })
     },
     delPage (id) {
       this.$axios.delete(`manage/page/${id}`)
         .then((r) => {
-          this.pop('페이지 삭제 완료')
+          this.$store.commit('pop', { msg: '페이지 삭제 완료', color: 'success' })
           this.getPages()
         })
         .catch((e) => {
-          this.pop(e.message)
+          if (!e.response) this.$store.commit('pop', { msg: e.message, color: 'warning' })
         })
     },
     pop (msg) {

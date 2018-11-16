@@ -97,7 +97,9 @@ export default {
       }
     },
     mod (board) {
-      if (board.name === this.form.name && board.rmk === this.form.rmk && board.lv === this.form.lv) return this.pop('변경한 것이 없습니다.', 'warning')
+      if (board.name === this.form.name && board.rmk === this.form.rmk && board.lv === this.form.lv) {
+        return this.$store.commit('pop', { msg: '변경한 것이 없습니다.', color: 'warning' })
+      }
       this.$axios.put(`manage/board/${board._id}`, this.form)
         .then((r) => {
           if (!r.data.success) throw new Error(r.data.msg)
@@ -107,7 +109,7 @@ export default {
           this.edit = false
         })
         .catch((e) => {
-          this.pop(e.message, 'error')
+          if (!e.response) this.$store.commit('pop', { msg: e.message, color: 'warning' })
         })
     },
     del (board) {
@@ -117,7 +119,7 @@ export default {
           this.$emit('list')
         })
         .catch((e) => {
-          this.pop(e.message, 'error')
+          if (!e.response) this.$store.commit('pop', { msg: e.message, color: 'warning' })
         })
     },
     pop (m, t) {

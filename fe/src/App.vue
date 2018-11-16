@@ -101,6 +101,18 @@
     <v-footer fixed app>
       <span>{{siteCopyright}}</span>
     </v-footer>
+    <v-snackbar
+      v-model="$store.state.sb.act"
+      :color="$store.state.sb.color"
+    >
+      {{ $store.state.sb.msg }}
+      <v-btn
+        flat
+        @click="$store.commit('pop', { act: false })"
+      >
+        닫기
+      </v-btn>
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -246,7 +258,9 @@ export default {
           this.siteCopyright = r.data.d.copyright
           this.siteDark = r.data.d.dark
         })
-        .catch(e => console.error(e.message))
+        .catch(e => {
+          if (!e.response) this.$store.commit('pop', { msg: e.message, color: 'warning' })
+        })
     },
     getBoards () {
       this.$axios.get('/board/list')
@@ -260,7 +274,9 @@ export default {
             })
           })
         })
-        .catch(e => console.error(e.message))
+        .catch(e => {
+          if (!e.response) this.$store.commit('pop', { msg: e.message, color: 'warning' })
+        })
     }
 
   }

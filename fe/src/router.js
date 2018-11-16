@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import axios from 'axios'
+import store from './store'
 
 Vue.use(Router)
 
@@ -20,28 +21,39 @@ axios.interceptors.request.use(function (config) {
   return Promise.reject(error)
 })
 
-// Add a response interceptor
 axios.interceptors.response.use(function (response) {
-  // Do something with response data
   const token = response.data.token
-  // console.log(token)
   if (token) localStorage.setItem('token', token)
   return response
 }, function (error) {
-  // Do something with response error
+  // console.log(error.response)
+  switch (error.response.status) {
+    case 400:
+      store.commit('pop', { msg: `잘못된 요청입니다(${error.response.status}:${error.message})`, color: 'error' })
+      break
+    case 401:
+      store.commit('delToken')
+      store.commit('pop', { msg: `인증 오류입니다(${error.response.status}:${error.message})`, color: 'error' })
+      break
+    case 403:
+      store.commit('pop', { msg: `이용 권한이 없습니다(${error.response.status}:${error.message})`, color: 'warning' })
+      break
+    default:
+      store.commit('pop', { msg: `알수 없는 오류입니다(${error.response.status}:${error.message})`, color: 'error' })
+      break
+  }
   return Promise.reject(error)
 })
 
 const pageCheck = (to, from, next) => {
-  // return next()
   axios.post('page', { name: to.path })
     .then((r) => {
       if (!r.data.success) throw new Error(r.data.msg)
       next()
     })
     .catch((e) => {
-      // console.error(e.message)
-      next(`/block/${e.message.replace(/\//gi, ' ')}`)
+      if (!e.response) store.commit('pop', { msg: e.message, color: 'warning' })
+      next(false)
     })
 }
 
@@ -109,15 +121,10 @@ export default new Router({
       component: () => import('./views/manage/boards'),
       beforeEnter: pageCheck
     },
-    {
-      path: '/block/:msg',
-      name: '차단',
-      component: () => import('./views/block')
-    },
     // {
-    //   path: '/test',
-    //   name: 'test',
-    //   component: () => import('./views/test')
+    //   path: '/block/:msg',
+    //   name: '차단',
+    //   component: () => import('./views/block')
     // },
     {
       path: '/sign',

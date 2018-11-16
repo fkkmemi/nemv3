@@ -5,7 +5,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    token: localStorage.getItem('token')
+    token: localStorage.getItem('token'),
+    sb: {
+      act: false,
+      msg: '',
+      color: 'error'
+    }
   },
   mutations: {
     getToken (state) {
@@ -14,6 +19,12 @@ export default new Vuex.Store({
     delToken (state) {
       localStorage.removeItem('token')
       state.token = null
+    },
+    pop (state, d) {
+      state.sb.msg = d.msg
+      state.sb.color = d.color
+      state.sb.act = false
+      if (d.act === undefined) state.sb.act = true
     }
   },
   actions: {

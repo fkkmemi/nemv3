@@ -36,7 +36,7 @@ export default {
           this.users = r.data.users
         })
         .catch((e) => {
-          console.error(e.message)
+          if (!e.response) this.$store.commit('pop', { msg: e.message, color: 'warning' })
         })
     }
   }

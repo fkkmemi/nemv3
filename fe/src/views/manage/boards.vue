@@ -117,14 +117,14 @@ export default {
       }
     },
     add () {
-      if (!this.form.name) return this.pop('이름을 작성해주세요', 'warning')
+      if (!this.form.name) return this.$store.commit('pop', { msg: '이름을 작성해주세요', color: 'warning' })
       this.$axios.post('manage/board', this.form)
         .then((r) => {
           this.dialog = false
           this.list()
         })
         .catch((e) => {
-          this.pop(e.message, 'error')
+          if (!e.response) this.$store.commit('pop', { msg: e.message, color: 'warning' })
         })
     },
     list () {
@@ -133,7 +133,7 @@ export default {
           this.boards = data.ds
         })
         .catch((e) => {
-          this.pop(e.message, 'error')
+          if (!e.response) this.$store.commit('pop', { msg: e.message, color: 'warning' })
         })
     },
     pop (m, c) {

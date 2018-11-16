@@ -1,6 +1,5 @@
-var express = require('express');
-var createError = require('http-errors');
-var router = express.Router();
+const router = require('express').Router()
+const createError = require('http-errors')
 const Board = require('../../../../models/boards')
 
 router.post('/', (req, res, next) => {
@@ -45,9 +44,5 @@ router.delete('/:_id', (req, res, next) => {
       res.send({ success: false, msg: e.message })
     })
 })
-
-router.all('*', function(req, res, next) {
-  next(createError(404, '그런 api 없어'));
-});
 
 module.exports = router;

@@ -1,6 +1,5 @@
-var express = require('express');
-var createError = require('http-errors');
-var router = express.Router();
+const router = require('express').Router()
+const createError = require('http-errors')
 const jwt = require('jsonwebtoken')
 const moment = require('moment')
 const cfg = require('../../../config')
@@ -60,18 +59,14 @@ router.all('*', function(req, res, next) {
       req.token = v.token
       next()
     })
-    .catch(e => res.send({ success: false, msg: e.message }))
+    // .catch(e => res.send({ success: false, msg: e.message }))
+    .catch(e => next(createError(401, e.message)))
 })
 
 router.use('/page', require('./page'))
 router.use('/article', require('./article'))
 router.use('/manage', require('./manage'))
 
+router.all('*', require('./notFound'))
 
-// router.use('/test', require('./test'))
-
-router.all('*', function(req, res, next) {
-  next(createError(404, '그런 api 없어'));
-});
-
-module.exports = router;
+module.exports = router

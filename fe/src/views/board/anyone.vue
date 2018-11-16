@@ -140,10 +140,8 @@
   </v-container>
 </template>
 <script>
-import boardCard from '@/components/manage/boardCard'
 
 export default {
-  components: { boardCard },
   data () {
     return {
       board: {
@@ -170,9 +168,7 @@ export default {
         { text: '추천', value: 'cnt.like', sortable: true }
       ],
       loading: false,
-      itemTotal: 0,
       pagination: {},
-      getTotalPage: 1,
       dlMode: 0, // 0: read, 1: write, 2: modify
       selArticle: {},
       ca: false,
@@ -210,9 +206,9 @@ export default {
       return (this.pagination.page - 1) * this.pagination.rowsPerPage
     },
     setSort () {
-      let order = this.pagination.sortBy
-      if (!this.pagination.sortBy) order = '_id'
-      return order
+      let sort = this.pagination.sortBy
+      if (!this.pagination.sortBy) sort = '_id'
+      return sort
     },
     setOrder () {
       return this.pagination.descending ? -1 : 1
@@ -268,14 +264,6 @@ export default {
       if (this.loading) return
       if (!this.board._id) return
       this.loading = true
-      // const params = {
-      //   draw: (this.params.draw += 1),
-      //   // search: this.search,
-      //   skip: this.setSkip,
-      //   limit: this.pagination.rowsPerPage,
-      //   order: this.setOrder,
-      //   sort: this.setSort
-      // }
       this.params.draw ++
       this.params.skip = this.setSkip
       this.params.limit = this.pagination.rowsPerPage

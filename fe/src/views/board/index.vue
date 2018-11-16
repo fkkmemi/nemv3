@@ -188,16 +188,13 @@ export default {
   },
   watch: {
     pagination: {
-      handler() {
+      handler () {
         this.list()
       },
       deep: true
     },
-    'params.search': {
-      handler() {
-        this.delay()
-        // this.list()
-      }
+    'params.search' (m) {
+      this.delay()
     },
     '$route' (to, from) {
       // console.log(to.path, from.path)
@@ -222,7 +219,7 @@ export default {
         this.pagination.totalItems == null
       ) return 0
       return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
-    },
+    }
   },
   methods: {
     addDialog () {
@@ -268,7 +265,7 @@ export default {
       if (this.loading) return
       if (!this.board._id) return
       this.loading = true
-      this.params.draw ++
+      this.params.draw += 1
       this.params.skip = this.setSkip
       this.params.limit = this.pagination.rowsPerPage
       this.params.sort = this.setSort
@@ -306,8 +303,9 @@ export default {
     mod () {
       if (!this.form.title) return this.pop('제목을 작성해주세요', 'warning')
       if (!this.form.content) return this.pop('내용을 작성해주세요', 'warning')
-      if (this.selArticle.title === this.form.title && this.selArticle.content === this.form.content)
+      if (this.selArticle.title === this.form.title && this.selArticle.content === this.form.content) {
         return this.pop('변경된 내용이 없습니다', 'warning')
+      }
       this.$axios.put(`article/${this.selArticle._id}`, this.form)
         .then(({ data }) => {
           this.dialog = false

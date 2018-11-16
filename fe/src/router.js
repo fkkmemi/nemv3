@@ -57,7 +57,7 @@ export default new Router({
     },
     {
       path: '/board/:name',
-      name: 'boardAnyone',
+      name: 'board',
       component: () => import('./views/board'),
       beforeEnter: pageCheck
     },

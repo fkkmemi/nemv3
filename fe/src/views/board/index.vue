@@ -198,6 +198,10 @@ export default {
         this.delay()
         // this.list()
       }
+    },
+    '$route' (to, from) {
+      // console.log(to.path, from.path)
+      this.getBoard()
     }
   },
   computed: {
@@ -237,7 +241,7 @@ export default {
       }
     },
     getBoard () {
-      this.$axios.get('board/아무나')
+      this.$axios.get(`board/read/${this.$route.params.name}`)
         .then(({ data }) => {
           if (!data.success) throw new Error(data.msg)
           this.board = data.d

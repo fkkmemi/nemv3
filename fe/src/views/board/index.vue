@@ -1,7 +1,71 @@
 <template>
   <v-container grid-list-md>
     <v-layout row wrap>
-      <v-flex xs12>
+      <v-flex xs12 sm12 md6>
+        <v-card dark>
+          <v-toolbar color="primary" flat>
+            <v-toolbar-title>
+              <v-tooltip bottom>
+                <span slot="activator">{{board.name}}</span>
+                <span>{{board.rmk}}</span>
+              </v-tooltip>
+            </v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-text-field
+              label="검색"
+              append-icon="search"
+              v-model="params.search"
+              clearable
+            ></v-text-field>
+            <v-btn icon>
+              <v-icon>search</v-icon>
+            </v-btn>
+          </v-toolbar>
+          <v-card-text class="grey lighten-5 pa-0">
+            <v-data-table flat
+              :headers="headers"
+              :items="articles"
+              :total-items="pagination.totalItems"
+              :pagination.sync="pagination"
+              rows-per-page-text=""
+              :loading="loading"
+              class="text-no-wrap"
+
+              disable-initial-sort>
+              <template slot="items" slot-scope="props">
+                <td :class="headers[0].class">{{ id2date(props.item._id)}}</td>
+                <td :class="headers[1].class"><a @click="read(props.item)"> {{ props.item.title }}</a></td>
+                <td :class="headers[2].class">{{ props.item._user ? props.item._user.id : '손님' }}</td>
+                <td :class="headers[3].class">{{ props.item.cnt.view }}</td>
+                <td :class="headers[4].class">{{ props.item.cnt.like }}</td>
+              </template>
+              <template slot="footer">
+
+              </template>
+              <template slot="actions-append">
+                <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
+              </template>
+            </v-data-table>
+          </v-card-text>
+          <v-card-text>
+
+          </v-card-text>
+          <v-card-text style="height: 40px; position: relative">
+            <v-btn
+              absolute
+              dark
+              fab
+              top
+              right
+              color="pink"
+              @click="addDialog"
+            >
+              <v-icon>add</v-icon>
+            </v-btn>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+      <!-- <v-flex xs12>
         <v-card>
           <v-img
             class="white--text"
@@ -20,54 +84,37 @@
             </v-container>
           </v-img>
         </v-card>
-      </v-flex>
+      </v-flex> -->
       <!-- <v-flex xs12 sm6 md4 v-for="article in articles" :key="article._id">
         {{article}}
       </v-flex> -->
-      <v-flex xs12 sm4 offset-sm8>
+      <!-- <v-flex xs12 sm4 offset-sm8>
         <v-text-field
           label="검색"
           append-icon="search"
           v-model="params.search"
           clearable
         ></v-text-field>
+      </v-flex> -->
+      <!-- <v-flex xs12>
+
       </v-flex>
-      <v-flex xs12>
-        <v-data-table
-          :headers="headers"
-          :items="articles"
-          :total-items="pagination.totalItems"
-          :pagination.sync="pagination"
-          rows-per-page-text=""
-          :loading="loading"
-          class="text-no-wrap"
-          disable-initial-sort>
-          <template slot="items" slot-scope="props">
-            <td :class="headers[0].class">{{ id2date(props.item._id)}}</td>
-            <td :class="headers[1].class"><a @click="read(props.item)"> {{ props.item.title }}</a></td>
-            <td :class="headers[2].class">{{ props.item._user ? props.item._user.id : '손님' }}</td>
-            <td :class="headers[3].class">{{ props.item.cnt.view }}</td>
-            <td :class="headers[4].class">{{ props.item.cnt.like }}</td>
-          </template>
-        </v-data-table>
-        <div class="text-xs-center pt-2">
-          <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
-        </div>
-      </v-flex>
+      <v-btn
+        color="pink"
+        dark
+        small
+        absolute
+        fixed
+        bottom
+        right
+        fab
+        @click="addDialog"
+        style="bottom: 64px;"
+      >
+        <v-icon>add</v-icon>
+      </v-btn> -->
     </v-layout>
 
-    <v-btn
-      color="pink"
-      dark
-      small
-      absolute
-      bottom
-      right
-      fab
-      @click="addDialog"
-    >
-      <v-icon>add</v-icon>
-    </v-btn>
     <v-dialog v-model="dialog" persistent max-width="500px">
       <v-card v-if="!dlMode">
         <v-card-title>

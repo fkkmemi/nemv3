@@ -3,6 +3,7 @@
     <v-layout row wrap>
       <v-flex xs12>
         <v-card>
+
           <v-card-title class="headline">
             <v-tooltip bottom>
               <span slot="activator">{{board.name}}</span>
@@ -49,7 +50,7 @@
         dark
         fab
         bottom
-        right
+        left
         color="pink"
         @click="addDialog"
       >
@@ -117,14 +118,35 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <!-- <vue-recaptcha
+      ref="recaptcha"
+      sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+      size="invisible"
+      @verify="onVerify"
+      @expired="onExpired"
+    >
+      <v-btn @click="rcc">rcc</v-btn>
+      <v-btn @click="rcc2">rcc2</v-btn>
+    </vue-recaptcha> -->
+    <vue-recaptcha
+      ref="recaptcha"
+      sitekey="6Lcu23sUAAAAACpyLEfxuMrovIwZAZ1x5hnAEGFv"
+      @verify="onVerify"
+      @expired="onExpired"
+    >
+      <v-btn @click="rcc">rcc</v-btn>
+      <v-btn @click="rcc2">rcc2</v-btn>
+    </vue-recaptcha>
   </v-container>
 </template>
 <script>
 
+import VueRecaptcha from 'vue-recaptcha'
+
 export default {
+  components: { VueRecaptcha },
   data () {
     return {
-      limits: [ 5, 6, 7, 11],
       board: {
         name: '로딩중...',
         rmk: '무엇?'
@@ -156,12 +178,20 @@ export default {
         order: 0,
         limit: 1
       },
-      timeout: null,
-      limits: [ 5, 10, 20 ]
+      timeout: null
     }
   },
   mounted () {
-    this.getBoard()
+    // window.grecaptcha.execute('6Lcu23sUAAAAACpyLEfxuMrovIwZAZ1x5hnAEGFv', {action: 'homepage'})
+    //   .then((token) => {
+    //     console.log('s')
+    //     console.log(token)
+    //   })
+    //   .catch(e => {
+    //     console.log('e')
+    //     console.log(e)
+    //   })
+    // this.getBoard()
   },
   watch: {
     pagination: {
@@ -199,6 +229,32 @@ export default {
     }
   },
   methods: {
+    onVerify (r) {
+      console.log(r)
+      this.sendRecaptcha(r)
+    },
+    onExpired () {
+      console.log('Expired')
+    },
+    rcc (r) {
+      this.$refs.recaptcha.reset()
+      this.$refs.recaptcha.execute()
+      //   .then(r => console.log(r))
+      //   .catche(e => console.log(e.message))
+    },
+    rcc2 (r) {
+      this.$refs.recaptcha.reset()
+    },
+    sendRecaptcha (token) {
+      const bd = {
+        secret: '6Lcu23sUAAAAAAGpPPwym117H4xa8lFGIJeK_4jV',
+        response: token,
+        remoteip: '1.1.1.1'
+      }
+      this.$axios.post('https://www.google.com/recaptcha/api/siteverify', bd)
+        .then(r => console.log(r))
+        .catch(e => console.error(e.massage))
+    },
     addDialog () {
       this.dialog = true
       this.dlMode = 1

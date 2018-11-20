@@ -248,10 +248,9 @@ export default {
     sendRecaptcha (token) {
       const bd = {
         secret: '6Lcu23sUAAAAAAGpPPwym117H4xa8lFGIJeK_4jV',
-        response: token,
-        remoteip: '1.1.1.1'
+        response: token
       }
-      this.$axios.post('https://www.google.com/recaptcha/api/siteverify', bd)
+      this.$axios.post('/recaptcha', bd)
         .then(r => console.log(r))
         .catch(e => console.error(e.massage))
     },

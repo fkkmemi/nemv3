@@ -9,7 +9,12 @@ router.post('/', (req, res, next) => {
     response,
     remoteip: req.ip
   }
-  axios.post('https://www.google.com/recaptcha/api/siteverify', bd)
+  const hd = {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
+    }
+  }
+  axios.post('https://www.google.com/recaptcha/api/siteverify', bd, hd)
     .then(r => {
       if (!r) throw new Error('데이터 없음')
       res.send({ success: true, d: r })

@@ -1,7 +1,7 @@
 # nemv3
 node express mongo vue
 
-## config 파일 세팅 방법
+## 백엔드 config 파일 세팅 방법
 
 **config/index.js**  
 ```javascript
@@ -20,7 +20,8 @@ module.exports = {
     expiresIn: 60 * 3, // 기본 3분
     expiresInRemember: 60 * 60 * 24 * 7 // 기억하기 눌렀을 때 7일
     expiresInDiv: 3, // 토큰시간 나누는 기준
-  }
+  },
+  recaptchaSecret: '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe' // google testkey
 }
 ```
 
@@ -54,3 +55,17 @@ module.exports = {
 - jwt.expiresIn: 기억히기 안 누른 토큰 시간(3분)
 - jwt.expiresInRemember: 기억하기 누른 토큰 시간(6일)
 - jwt.expiresInDiv: 토큰 시간 나눈 시간(1분 혹은 2일), 토큰 재발급 할때 쓰일 시간입니다.
+
+- recaptchaSecretKey: 구글 로봇 감지 비밀 키입니다.  
+참고:  [https://developers.google.com/recaptcha/docs/faq](https://developers.google.com/recaptcha/docs/faq)
+
+## 프론트엔드 config 파일 세팅 방법
+
+**fe/config/index.js**  
+```javascript
+module.exports = {
+  recaptchaSiteKey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+}
+```
+
+- recaptchaSiteKey: 구글 로봇 감지 사이트 키입니다.

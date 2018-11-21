@@ -3,7 +3,6 @@
     <v-layout row wrap>
       <v-flex xs12>
         <v-card>
-
           <v-card-title class="headline">
             <v-tooltip bottom>
               <span slot="activator">{{board.name}}</span>
@@ -39,9 +38,11 @@
             <template slot="actions-prepend">
             </template>
             <template slot="actions-append">
-              <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
             </template>
           </v-data-table>
+          <!-- <v-card-text>
+            <v-pagination v-model="pagination.page" :length="pages" style="width:200px"></v-pagination>
+          </v-card-text> -->
         </v-card>
       </v-flex>
       <v-btn
@@ -50,7 +51,7 @@
         dark
         fab
         bottom
-        left
+        right
         color="pink"
         @click="addDialog"
       >
@@ -90,45 +91,39 @@
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
-          <v-container grid-list-md>
-            <v-layout wrap>
-              <v-flex xs12>
-                <v-text-field
-                  label="제목"
-                  persistent-hint
-                  required
-                  v-model="form.title"
-                ></v-text-field>
-              </v-flex>
-              <v-flex xs12>
-                <v-textarea
-                  label="내용"
-                  persistent-hint
-                  required
-                  v-model="form.content"
-                ></v-textarea>
-              </v-flex>
-            </v-layout>
-          </v-container>
+          <v-form>
+            <v-text-field
+              label="제목"
+              persistent-hint
+              required
+              v-model="form.title"
+            ></v-text-field>
+            <v-textarea
+              label="내용"
+              persistent-hint
+              required
+              v-model="form.content"
+            ></v-textarea>
+
+            <vue-recaptcha
+              ref="recaptcha"
+              :sitekey="$cfg.recaptchaSiteKey"
+              size="invisible"
+              @verify="onVerify"
+              @expired="onExpired"
+            >
+            </vue-recaptcha>
+          </v-form>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="green darken-1" flat @click="(dlMode === 1) ? add() : mod()">확인</v-btn>
+          <v-btn color="green darken-1" flat @click="checkRobot()">확인</v-btn>
           <v-btn color="red darken-1" flat @click.native="dialog = false">취소</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
+
     <!-- <vue-recaptcha
-      ref="recaptcha"
-      sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
-      size="invisible"
-      @verify="onVerify"
-      @expired="onExpired"
-    >
-      <v-btn @click="rcc">rcc</v-btn>
-      <v-btn @click="rcc2">rcc2</v-btn>
-    </vue-recaptcha> -->
-    <vue-recaptcha
       ref="recaptcha"
       sitekey="6Lcu23sUAAAAACpyLEfxuMrovIwZAZ1x5hnAEGFv"
       @verify="onVerify"
@@ -136,15 +131,15 @@
     >
       <v-btn @click="rcc">rcc</v-btn>
       <v-btn @click="rcc2">rcc2</v-btn>
-    </vue-recaptcha>
+    </vue-recaptcha> -->
   </v-container>
 </template>
 <script>
 
-import VueRecaptcha from 'vue-recaptcha'
+// import VueRecaptcha from 'vue-recaptcha'
 
 export default {
-  components: { VueRecaptcha },
+  // components: { VueRecaptcha },
   data () {
     return {
       board: {
@@ -156,7 +151,8 @@ export default {
       lvs: [0, 1, 2, 3],
       form: {
         title: '',
-        content: ''
+        content: '',
+        response: ''
       },
       headers: [
         { text: '날짜', value: '_id', sortable: true, class: 'hidden-sm-and-down' },
@@ -166,7 +162,10 @@ export default {
         { text: '추천', value: 'cnt.like', sortable: true }
       ],
       loading: false,
-      pagination: {},
+      pagination: {
+        sortBy: '_id',
+        descending: true
+      },
       dlMode: 0, // 0: read, 1: write, 2: modify
       selArticle: {},
       ca: false,
@@ -182,16 +181,7 @@ export default {
     }
   },
   mounted () {
-    // window.grecaptcha.execute('6Lcu23sUAAAAACpyLEfxuMrovIwZAZ1x5hnAEGFv', {action: 'homepage'})
-    //   .then((token) => {
-    //     console.log('s')
-    //     console.log(token)
-    //   })
-    //   .catch(e => {
-    //     console.log('e')
-    //     console.log(e)
-    //   })
-    // this.getBoard()
+    this.getBoard()
   },
   watch: {
     pagination: {
@@ -230,14 +220,23 @@ export default {
   },
   methods: {
     onVerify (r) {
-      console.log(r)
-      this.sendRecaptcha(r)
+      this.form.response = r
+      this.$refs.recaptcha.reset()
+      if (this.dlMode === 1) this.add()
+      else this.mod()
     },
     onExpired () {
-      console.log('Expired')
+      this.form.response = ''
+      this.$refs.recaptcha.reset()
+    },
+    checkRobot () {
+      // console.log(this.form.response)
+      if (this.form.response === '') return this.$refs.recaptcha.execute()
+      if (this.dlMode === 1) this.add()
+      else this.mod()
     },
     rcc (r) {
-      this.$refs.recaptcha.reset()
+      // this.$refs.recaptcha.reset()
       this.$refs.recaptcha.execute()
       //   .then(r => console.log(r))
       //   .catche(e => console.log(e.message))
@@ -246,8 +245,8 @@ export default {
       this.$refs.recaptcha.reset()
     },
     sendRecaptcha (token) {
+      this.$refs.recaptcha.reset()
       const bd = {
-        secret: '6Lcu23sUAAAAAAGpPPwym117H4xa8lFGIJeK_4jV',
         response: token
       }
       this.$axios.post('/recaptcha', bd)
@@ -257,17 +256,13 @@ export default {
     addDialog () {
       this.dialog = true
       this.dlMode = 1
-      this.form = {
-        title: '',
-        content: ''
-      }
+      this.form.title = ''
+      this.form.content = ''
     },
     modDialog () {
       this.dlMode = 2
-      this.form = {
-        title: this.selArticle.title,
-        content: this.selArticle.content
-      }
+      this.form.title = this.selArticle.title
+      this.form.content = this.selArticle.content
     },
     getBoard () {
       this.$axios.get(`board/read/${this.$route.params.name}`)

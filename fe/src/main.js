@@ -15,16 +15,14 @@ Vue.prototype.$cfg = cfg
 
 Vue.use(VeeValidate)
 Vue.use(LoadScript)
-Vue.component('vue-recaptcha', VueRecaptcha)
 
 Vue.loadScript("https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit")
-  // .then(() => {
-  //   console.log('recaptcha loaded')
-  //   // Script is loaded, do something
-  // })
-  // .catch(() => {
-  //   // Failed to fetch script
-  // })
+  .then(() => {
+    Vue.component('vue-recaptcha', VueRecaptcha)
+  })
+  .catch((e) => {
+    console.error(`google api load failed: ${e.message}`)
+  })
 
 new Vue({
   router,

@@ -55,8 +55,6 @@
                 @verify="onVerify"
                 @expired="onExpired"
               >
-                <!-- <v-btn @click="rcc">rcc</v-btn>
-                <v-btn @click="rcc2">rcc2</v-btn> -->
               </vue-recaptcha>
 
               <v-spacer></v-spacer>

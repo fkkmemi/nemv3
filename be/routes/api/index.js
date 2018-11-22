@@ -7,7 +7,6 @@ const cfg = require('../../../config')
 router.use('/sign', require('./sign'))
 router.use('/site', require('./site'))
 router.use('/board', require('./board'))
-router.use('/recaptcha', require('./recaptcha'))
 
 const verifyToken = (t) => {
   return new Promise((resolve, reject) => {

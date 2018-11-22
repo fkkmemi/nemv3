@@ -17,6 +17,7 @@
           <v-divider light></v-divider>
           <v-card-title primary-title>
             <div>
+              <div>제목: {{page.title}}</div>
               <div>권한: {{page.lv}}</div>
               <div>진입 횟수: {{page.inCnt}}</div>
             </div>
@@ -38,12 +39,19 @@
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12 sm6 md4>
-                <v-text-field
+                <!-- <v-text-field
                   label="페이지 이름"
                   hint="게시판"
                   persistent-hint
                   required
                   v-model="pageName"
+                ></v-text-field> -->
+                <v-text-field
+                  label="페이지 제목"
+                  hint="게시판"
+                  persistent-hint
+                  required
+                  v-model="pageTitle"
                 ></v-text-field>
               </v-flex>
               <v-flex xs12 sm6>
@@ -88,6 +96,7 @@ export default {
       pageLvs: [],
       pageLv: 0,
       pageName: '',
+      pageTitle: '',
       snackbar: false,
       sbMsg: '',
       putId: ''
@@ -111,12 +120,13 @@ export default {
       this.putId = page._id
       this.dialog = true
       this.pageName = page.name
+      this.pageTitle = page.title
       this.pageLv = page.lv
     },
     putPage () {
       this.dialog = false
       this.$axios.put(`manage/page/${this.putId}`, {
-        name: this.pageName, lv: this.pageLv
+        title: this.pageTitle, lv: this.pageLv
       })
         .then((r) => {
           this.$store.commit('pop', { msg: '페이지 수정 완료', color: 'success' })

@@ -31,13 +31,21 @@
         <v-card-text>
           <v-container grid-list-md>
             <v-layout wrap>
-              <v-flex xs12 sm6 md4>
+              <v-flex xs12 sm6>
                 <v-text-field
-                  label="게시판 이름"
-                  hint="당구모임"
+                  label="게시판 경로"
+                  hint="영어로 써주세요"
                   persistent-hint
                   required
                   v-model="form.name"
+                ></v-text-field>
+              </v-flex xs12 sm6>
+                <v-text-field
+                  label="게시판 제목"
+                  hint="당구모임"
+                  persistent-hint
+                  required
+                  v-model="form.title"
                 ></v-text-field>
               </v-flex>
               <v-flex xs12 sm6>
@@ -93,6 +101,7 @@ export default {
       lvs: [0, 1, 2, 3],
       form: {
         name: '',
+        title: '',
         rmk: '',
         lv: 0
       },
@@ -112,6 +121,7 @@ export default {
       this.dialog = true
       this.form = {
         name: '',
+        title: '',
         rmk: '',
         lv: 0
       }

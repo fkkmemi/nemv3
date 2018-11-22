@@ -138,7 +138,7 @@ export default {
       this.$refs.recaptcha.reset()
     },
     checkRobot () {
-      if (this.form.response) this.submit()
+      if (this.form.response.length) this.submit()
       else this.$refs.recaptcha.execute()
     },
     submit () {

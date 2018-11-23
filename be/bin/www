@@ -92,7 +92,6 @@ function onListening() {
 // ssl added
 
 const fs = require('fs')
-console.log(fs.existsSync('./config/keys/site.key'))
 if (fs.existsSync('./config/keys/site.key') && fs.existsSync('./config/keys/cert.crt') && fs.existsSync('./config/keys/ca.crt')) {
   const https = require('https')
   const httpsPort = process.env.PORT ? 443 : 3001
@@ -126,7 +125,6 @@ if (fs.existsSync('./config/keys/site.key') && fs.existsSync('./config/keys/cert
 
   serverSSL.on('listening', () => {
     {
-      console.log('https')
       const addr = serverSSL.address()
       const bind = typeof addr === 'string'
         ? 'pipe ' + addr

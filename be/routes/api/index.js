@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken')
 const moment = require('moment')
 const cfg = require('../../../config')
 
+router.use('/lb', require('./lb'))
 router.use('/sign', require('./sign'))
 router.use('/site', require('./site'))
 router.use('/board', require('./board'))

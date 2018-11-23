@@ -69,3 +69,15 @@ module.exports = {
 ```
 
 - recaptchaSiteKey: 구글 로봇 감지 사이트 키입니다.
+
+## ssl 서버 작동
+
+3개의 파일 필요
+
+- config/keys/site.key
+- config/keys/cert.crt
+- config/keys/ca.crt
+
+site key는 로컬 머신에서 제작합니다.
+
+cert, ca는 ssl공급사로부터 받습니다.

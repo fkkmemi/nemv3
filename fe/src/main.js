@@ -17,7 +17,11 @@ Vue.prototype.$cfg = cfg
 Vue.use(VeeValidate)
 Vue.use(LoadScript)
 Vue.use(VueAnalytics, {
-  id: 'UA-93372301-1'
+  id: 'UA-93372301-1',
+  router,
+  autoTracking: {
+    pageviewOnLoad: false
+  }
 })
 
 Vue.loadScript('https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit')

@@ -172,7 +172,7 @@ export default {
         search: '',
         skip: 0,
         sort: '_id',
-        order: 0,
+        order: -1,
         limit: 1
       },
       timeout: null
@@ -351,7 +351,7 @@ export default {
 }
 </script>
 <style scoped>
-.v-datatable__actions__range-controls {
+/* .v-datatable__actions__range-controls {
   display: none !important;
-}
+} */
 </style>

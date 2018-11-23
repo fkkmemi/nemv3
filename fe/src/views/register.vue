@@ -89,6 +89,7 @@ export default {
   },
 
   data: () => ({
+    invisible: '',
     form: {
       id: '',
       name: '',
@@ -129,6 +130,7 @@ export default {
 
   methods: {
     onVerify (r) {
+      console.log(r)
       this.form.response = r
       this.$refs.recaptcha.reset()
       this.submit()
@@ -138,6 +140,7 @@ export default {
       this.$refs.recaptcha.reset()
     },
     checkRobot () {
+      // this.$refs.recaptcha.execute()
       if (this.form.response.length) this.submit()
       else this.$refs.recaptcha.execute()
     },

@@ -88,3 +88,50 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+// ssl added
+
+const fs = require('fs')
+console.log(fs.existsSync('./config/keys/site.key'))
+if (fs.existsSync('./config/keys/site.key') && fs.existsSync('./config/keys/cert.crt') && fs.existsSync('./config/keys/ca.crt')) {
+  const https = require('https')
+  const httpsPort = process.env.PORT ? 443 : 3001
+  const o = {
+    key: fs.readFileSync('./config/keys/site.key'),
+    cert: fs.readFileSync('./config/keys/cert.crt'),
+    ca: [fs.readFileSync('./config/keys/ca.crt')]
+  }
+  const serverSSL = https.createServer(o, app).listen(httpsPort)
+
+  serverSSL.on('error', (error) => {
+    if (error.syscall !== 'listen') {
+      throw error
+    }
+    const bind = `port ${httpsPort}`
+
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+      case 'EACCES':
+        console.error(bind + ' requires elevated privileges')
+        process.exit(1)
+        break
+      case 'EADDRINUSE':
+        console.error(bind + ' is already in use')
+        process.exit(1)
+        break
+      default:
+        throw error
+    }
+  })
+
+  serverSSL.on('listening', () => {
+    {
+      console.log('https')
+      const addr = serverSSL.address()
+      const bind = typeof addr === 'string'
+        ? 'pipe ' + addr
+        : 'port ' + addr.port
+      debug('HTTPS Listening on ' + bind)
+    }
+  })
+}

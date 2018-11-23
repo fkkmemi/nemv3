@@ -39,7 +39,8 @@
                   required
                   v-model="form.name"
                 ></v-text-field>
-              </v-flex xs12 sm6>
+              </v-flex>
+              <v-flex xs12 sm6>
                 <v-text-field
                   label="게시판 제목"
                   hint="당구모임"

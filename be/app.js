@@ -263,3 +263,18 @@ module.exports = app;
 //   .populate('_user', 'name')
 //   .populate('_board')
 //   .then(r => console.log(r))
+
+// const net = require('net')
+// net.createServer((sock) => {
+//
+//   console.log('connected')
+//   sock.on('data', (data) => {
+//     console.log(data)
+//   })
+//   sock.on('error', (err) => {
+//     console.log(err)
+//   })
+//   sock.on('close', () => {
+//     console.log('close')
+//   })
+// }).listen(cfgNet.port)

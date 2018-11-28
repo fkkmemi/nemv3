@@ -17,7 +17,7 @@ Vue.prototype.$cfg = cfg
 Vue.use(VeeValidate)
 Vue.use(LoadScript)
 Vue.use(VueAnalytics, {
-  id: 'UA-93372301-1',
+  id: cfg.analyticsID,
   router,
   autoTracking: {
     pageviewOnLoad: false

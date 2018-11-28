@@ -8,8 +8,7 @@ module.exports = {
       PORT: 80
     },
     env_dev: {
-      NODE_ENV: 'development',
-      PORT: 3000
+      NODE_ENV: 'development'
     }
   }]
 }

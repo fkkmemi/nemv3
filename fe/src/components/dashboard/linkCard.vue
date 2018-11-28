@@ -12,9 +12,6 @@
         <v-tab v-for="article in articles" :key="article._id">
           {{ article.title }}
         </v-tab>
-        <!-- <v-tab v-for="item in items" :key="item">
-          {{ item }}
-        </v-tab> -->
       </v-tabs>
     </v-toolbar>
 
@@ -25,7 +22,6 @@
         </v-card>
       </v-tab-item>
     </v-tabs-items>
-    <v-btn @click="test">test</v-btn>
   </div>
 </template>
 <script>
@@ -55,18 +51,13 @@ export default {
   },
   watch: {
     tab (t) {
-      console.log(t)
       if (this.articles.length) this.read(t)
     }
   },
   methods: {
-    test () {
-      this.articles[0].content = Math.random()
-    },
     getBoard () {
       this.$axios.get(`board/read/link`)
         .then(({ data }) => {
-          console.log(data)
           if (!data.success) throw new Error(data.msg)
           this.board = data.d
           this.list()
@@ -100,7 +91,6 @@ export default {
       this.$axios.get(`article/read/${atc._id}`)
         .then(({ data }) => {
           if (!data.success) throw new Error(data.msg)
-          console.log(data)
           atc.content = data.d.content
           atc.cnt.view = data.d.cnt.view
           this.loading = false

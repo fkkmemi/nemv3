@@ -7659,6 +7659,11 @@ vuetify@^1.3.0:
   resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.3.7.tgz#894e0bedb3e87fc5bae47896d924caa4e11e6d84"
   integrity sha512-EXKQggY+SPTBlmzmcFcNI6h/xdZLv6vr9VBcos8+kUumftIG7HDqqtFdRVNCco4EPrQgiG5sWDm5raM07NDvBg==
 
+vuetrend@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/vuetrend/-/vuetrend-0.3.2.tgz#13100862ded562c78d3704c3865cd38c582e586a"
+  integrity sha512-nXza0yeoynEdrdV8RKStHA0KykPyVXNHjcQOqxc+5rW5051V3RMrsI9ob1+kiJM8azoww6t6XiC/+AS7aiqEew==
+
 vuex@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/vuex/-/vuex-3.0.1.tgz#e761352ebe0af537d4bb755a9b9dc4be3df7efd2"

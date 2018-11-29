@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <v-card height="100%">
     <v-toolbar color="cyan" dark tabs>
       <v-toolbar-title>{{board.title}}</v-toolbar-title>
       <v-tabs
         slot="extension"
         v-model="tab"
-        color="cyan"
+        color="cyan" grow
       >
         <v-tabs-slider color="yellow"></v-tabs-slider>
 
@@ -22,7 +22,7 @@
         </v-card>
       </v-tab-item>
     </v-tabs-items>
-  </div>
+  </v-card>
 </template>
 <script>
 export default {

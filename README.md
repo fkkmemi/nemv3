@@ -64,11 +64,13 @@ module.exports = {
 **fe/config/index.js**  
 ```javascript
 module.exports = {
-  recaptchaSiteKey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+  recaptchaSiteKey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI',
+  analyticsID: 'UA-93372301-1'
 }
 ```
 
 - recaptchaSiteKey: 구글 로봇 감지 사이트 키입니다.
+- analyticsID: 구글 애널리틱스 아이디입니다.
 
 ## ssl 서버 작동
 
@@ -79,5 +81,11 @@ module.exports = {
 - config/keys/ca.crt
 
 site key는 로컬 머신에서 제작합니다.
+
+**site.key 제작 방법**  
+```bash
+$ mkdir config/keys && cd config/keys
+$ openssl req -new -newkey rsa:2048 -nodes -keyout site.key
+```
 
 cert, ca는 ssl공급사로부터 받습니다.

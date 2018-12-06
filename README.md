@@ -65,12 +65,14 @@ module.exports = {
 ```javascript
 module.exports = {
   recaptchaSiteKey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI',
-  analyticsID: 'UA-93372301-1'
+  analyticsID: 'UA-93372301-1',
+  httpsOnly: false
 }
 ```
 
 - recaptchaSiteKey: 구글 로봇 감지 사이트 키입니다.
 - analyticsID: 구글 애널리틱스 아이디입니다.
+- httpsOnly: http로 접속할 경우 https로 다시 로드합니다.
 
 ## ssl 서버 작동
 

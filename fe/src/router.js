@@ -121,11 +121,12 @@ export default new Router({
       component: () => import('./views/manage/boards'),
       beforeEnter: pageCheck
     },
-    // {
-    //   path: '/block/:msg',
-    //   name: '차단',
-    //   component: () => import('./views/block')
-    // },
+    {
+      path: '/user',
+      name: 'user',
+      component: () => import('./views/user'),
+      beforeEnter: pageCheck
+    },
     {
       path: '/sign',
       name: '로그인',

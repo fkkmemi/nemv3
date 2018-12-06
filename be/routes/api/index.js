@@ -66,6 +66,7 @@ router.all('*', function(req, res, next) {
 router.use('/page', require('./page'))
 router.use('/article', require('./article'))
 router.use('/manage', require('./manage'))
+router.use('/user', require('./user'))
 
 router.all('*', require('./notFound'))
 

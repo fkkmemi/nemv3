@@ -3317,6 +3317,21 @@ filename-regex@^2.0.0:
   resolved "https://registry.yarnpkg.com/filename-regex/-/filename-regex-2.0.1.tgz#c1c4b9bee3e09725ddb106b75c1e301fe2f18b26"
   integrity sha1-wcS5vuPglyXdsQa3XB4wH+LxiyY=
 
+filepond-plugin-file-validate-type@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/filepond-plugin-file-validate-type/-/filepond-plugin-file-validate-type-1.2.0.tgz#5ab8d25cb21c8d632a10b4c1a008fb5c0b1ff73a"
+  integrity sha512-oXck6wr37TwN1qcb64ktXIsi15Mfqqfd65T9gp5RP2nkXkwXtvgb5q5PANRqNEAYyJv3Od5DfL8m4BzfBXiBtg==
+
+filepond-plugin-image-preview@^3.1.4:
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/filepond-plugin-image-preview/-/filepond-plugin-image-preview-3.1.4.tgz#5b40b0059844350490459f633feabbc51f3a54d8"
+  integrity sha512-IGH8ZFY28ulpEVbukZMFbzfxS9fTw/YlmIJ33tHNKjzXFBMzJmioSVr6EGy6sz4X7HQF2vlAoiE+wiFIQarPXQ==
+
+filepond@^3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/filepond/-/filepond-3.5.0.tgz#14e006487a36f9fa4c679ea7998c61f3d9fb426c"
+  integrity sha512-Kd6+kUz3L0Oj5RqbS1JkHVa6Uh7n3IYwq88W9b8yg2OdXfBItJwSEbcjFI2ujeaKMu5zwHkuKpYaCZ8ZHkD5Fg==
+
 filesize@^3.5.11:
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/filesize/-/filesize-3.6.1.tgz#090bb3ee01b6f801a8a8be99d31710b3422bb317"
@@ -7596,6 +7611,11 @@ vue-eslint-parser@^2.0.3:
     espree "^3.5.2"
     esquery "^1.0.0"
     lodash "^4.17.4"
+
+vue-filepond@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/vue-filepond/-/vue-filepond-4.0.2.tgz#32c824c9a77cd9d230076feaf8dcdf21d0095cc6"
+  integrity sha512-ZwZ1Q+XiwBMFYf33RlQYVrvFHW00jxsFpCeJJXXZpru1bL/zJOYAJa9dyu/p3v1zJ8OvPHbXKiDFmuhuNl/0+Q==
 
 vue-hot-reload-api@^2.3.0:
   version "2.3.1"

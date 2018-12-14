@@ -14,8 +14,7 @@ import cfg from '../config'
 Vue.config.productionTip = false
 
 Vue.prototype.$cfg = cfg
-if(process.env.NODE_ENV === 'production' && location.protocol === 'http:' && cfg.httpsOnly)
-  location.replace(`https://${location.hostname}`)
+if (process.env.NODE_ENV === 'production' && location.protocol === 'http:' && cfg.httpsOnly) location.replace(`https://${location.hostname}`)
 Vue.use(VeeValidate)
 Vue.use(LoadScript)
 Vue.use(VueAnalytics, {

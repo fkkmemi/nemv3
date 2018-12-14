@@ -1,20 +1,12 @@
-<!-- <template>
-  <v-container>
-    <v-alert type="info" :value="true">
-      레벨 3 손님용
-    </v-alert>
-  </v-container>
-</template> -->
 <template>
-  <div id="app">
+  <div>
     <file-pond
-      name="test"
+      name="bin"
       ref="pond"
-      label-idle="Drop files here..."
       allow-multiple="false"
       max-files="1"
       accepted-file-types="image/jpeg, image/png"
-      :server="`${$apiRootPath}user`"
+      :server="server"
       v-bind:files="myFiles"
       v-on:init="handleFilePondInit"
       v-on:processfile="onload"
@@ -45,7 +37,17 @@ const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImage
 export default {
   name: 'app',
   data () {
-    return { myFiles: [] }
+    return {
+      myFiles: [],
+      server: {
+        url: `${this.$apiRootPath}user`,
+        process: {
+          headers: {
+            Authorization: localStorage.getItem('token')
+          }
+        }
+      }
+    }
   },
   methods: {
     handleFilePondInit () {
@@ -53,7 +55,6 @@ export default {
       // FilePond instance methods are available on `this.$refs.pond`
     },
     onload (e, r) {
-      console.log(e)
       console.log(r)
     }
   },

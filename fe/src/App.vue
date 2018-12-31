@@ -12,26 +12,11 @@
         <v-list class="pa-0">
           <v-list-tile avatar>
             <v-list-tile-avatar>
-              <v-badge
-                overlap
-                color="orange"
-              >
-                <v-icon
-                  slot="badge"
-                  dark
-                  small
-                >notifications</v-icon>
-                <v-icon
-                  large
-                  color="grey darken-1"
-                >
-                  account_box
-                </v-icon>
-              </v-badge>
+              <img :src="$store.state.user.img">
             </v-list-tile-avatar>
             <v-list-tile-content>
               <!-- <v-list-tile-title>{{ `${$user.name} 님 (${$user.job})` }}</v-list-tile-title> -->
-              <v-list-tile-title>관리자</v-list-tile-title>
+              <v-list-tile-title>{{$store.state.user.name}}</v-list-tile-title>
 
             </v-list-tile-content>
             <v-list-tile-action>

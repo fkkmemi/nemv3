@@ -44,7 +44,7 @@ export default {
         .then(r => {
           if (!r.data.success) throw new Error(r.data.msg)
           localStorage.setItem('token', r.data.token)
-          this.$store.commit('getToken')
+          this.$store.commit('getToken', r.data.user)
           this.$router.push('/')
         })
         .catch(e => {

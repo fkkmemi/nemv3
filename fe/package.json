@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0-rc.1",
+    "@toast-ui/vue-editor": "^1.0.2",
     "axios": "^0.18.0",
     "filepond": "^3.5.0",
     "filepond-plugin-file-validate-type": "^1.2.0",

@@ -5,11 +5,15 @@ import LoadScript from 'vue-plugin-load-script'
 import VueRecaptcha from 'vue-recaptcha'
 import VueAnalytics from 'vue-analytics'
 import Trend from 'vuetrend'
+import 'tui-editor/dist/tui-editor.css'
+import 'tui-editor/dist/tui-editor-contents.css'
+import 'codemirror/lib/codemirror.css'
 import './plugins/vuetify'
 import App from './App.vue'
 import router from './router'
 import store from './store'
 import cfg from '../config'
+import { Editor, Viewer } from '@toast-ui/vue-editor'
 
 Vue.config.productionTip = false
 
@@ -33,6 +37,8 @@ Vue.loadScript('https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLo
   .catch((e) => {
     console.error(`google api load failed: ${e.message}`)
   })
+Vue.component('editor', Editor)
+Vue.component('viewer', Viewer)
 
 new Vue({
   router,

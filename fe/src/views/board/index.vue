@@ -60,14 +60,15 @@
     </v-layout>
 
     <v-dialog v-model="dialog" persistent max-width="500px" :fullscreen="$vuetify.breakpoint.xs">
-      <v-card v-if="!dlMode">
+      <v-card v-if="!dlMode" light>
         <v-card-title>
           <span class="headline">제목: {{selArticle.title}}</span>
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
           <p>내용</p>
-          {{selArticle.content}}
+          <!-- {{selArticle.content}} -->
+          <viewer :value="selArticle.content" />
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -85,7 +86,7 @@
           </v-card-text>
         </v-card-text>
       </v-card>
-      <v-card v-else>
+      <v-card light v-else>
         <v-card-title>
           <span class="headline">글 {{(dlMode === 1) ? '작성' : '수정'}}</span>
         </v-card-title>
@@ -98,12 +99,13 @@
               required
               v-model="form.title"
             ></v-text-field>
-            <v-textarea
+            <!-- <v-textarea
               label="내용"
               persistent-hint
               required
               v-model="form.content"
-            ></v-textarea>
+            ></v-textarea> -->
+            <editor v-model="form.content"/>
 
             <vue-recaptcha
               ref="recaptcha"

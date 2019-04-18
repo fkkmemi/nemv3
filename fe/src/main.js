@@ -5,6 +5,7 @@ import LoadScript from 'vue-plugin-load-script'
 import VueRecaptcha from 'vue-recaptcha'
 import VueAnalytics from 'vue-analytics'
 import Trend from 'vuetrend'
+import VuetifyDialog from 'vuetify-dialog'
 import 'tui-editor/dist/tui-editor.css'
 import 'tui-editor/dist/tui-editor-contents.css'
 import 'codemirror/lib/codemirror.css'
@@ -29,6 +30,7 @@ Vue.use(VueAnalytics, {
   }
 })
 Vue.use(Trend)
+Vue.use(VuetifyDialog)
 
 Vue.loadScript('https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit')
   .then(() => {

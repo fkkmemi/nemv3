@@ -23,6 +23,7 @@
     "vue-recaptcha": "^1.1.1",
     "vue-router": "^3.0.1",
     "vuetify": "^1.3.0",
+    "vuetify-dialog": "^0.3.4",
     "vuetrend": "^0.3.2",
     "vuex": "^3.0.1"
   },

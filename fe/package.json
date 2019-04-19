@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0-rc.1",
@@ -19,6 +20,7 @@
     "vue": "^2.5.17",
     "vue-analytics": "^5.16.0",
     "vue-filepond": "^4.0.2",
+    "vue-i18n": "^8.0.0",
     "vue-plugin-load-script": "^1.2.0",
     "vue-recaptcha": "^1.1.1",
     "vue-router": "^3.0.1",
@@ -32,6 +34,7 @@
     "@vue/cli-plugin-eslint": "^3.0.4",
     "@vue/cli-service": "^3.0.4",
     "@vue/eslint-config-standard": "^3.0.4",
+    "vue-cli-plugin-i18n": "^0.6.0",
     "vue-cli-plugin-vuetify": "^0.2.1",
     "vue-template-compiler": "^2.5.17"
   }

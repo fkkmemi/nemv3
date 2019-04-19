@@ -15,6 +15,7 @@ import router from './router'
 import store from './store'
 import cfg from '../config'
 import { Editor, Viewer } from '@toast-ui/vue-editor'
+import i18n from './i18n'
 
 Vue.config.productionTip = false
 
@@ -45,5 +46,6 @@ Vue.component('viewer', Viewer)
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App)
 }).$mount('#app')

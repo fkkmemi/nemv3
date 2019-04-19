@@ -57,7 +57,7 @@
       app
     >
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title v-text="siteTitle"></v-toolbar-title>
+      <v-toolbar-title>{{siteTitle}} {{$t('message')}}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-menu bottom left>
@@ -65,6 +65,9 @@
             <v-icon>more_vert</v-icon>
           </v-btn>
           <v-list>
+            <v-list-tile  @click="changeLocale">
+              <v-list-tile-title>{{$i18n.locale === 'en' ? '한글' : 'English'}}</v-list-tile-title>
+            </v-list-tile>
             <template v-if="!$store.state.token">
               <v-list-tile  @click="$router.push('/sign')">
                 <v-list-tile-title>로그인</v-list-tile-title>
@@ -121,11 +124,11 @@ export default {
       items: [
         {
           icon: 'donut_large',
-          title: '현황',
+          title: this.$t('dashboard'), // '현황',
           act: true,
           subItems: [
             {
-              title: '오늘',
+              title: this.$t('today'), // '오늘',
               to: {
                 path: '/'
               }
@@ -268,8 +271,13 @@ export default {
         .catch(e => {
           if (!e.response) this.$store.commit('pop', { msg: e.message, color: 'warning' })
         })
+    },
+    changeLocale () {
+      if (this.$i18n.locale === 'en') this.$i18n.locale = 'ko'
+      else this.$i18n.locale = 'en'
+      this.items[0].title = this.$t('dashboard')
+      this.items[0].subItems[0].title = this.$t('today')
     }
-
   }
 }
 </script>
